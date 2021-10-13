@@ -25,4 +25,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 use App\Http\Controllers\catalogController;
-Route::get('/product-num',[catalogController::class,'getSelaeRepByEmployee']);
+
+Route::get('/catalog',[catalogController::class,'showtest']);
