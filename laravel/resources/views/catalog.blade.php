@@ -42,11 +42,14 @@
                                 <td class="inner-table">{{ $data->productDescription }}</td>
                                 <td class="inner-table">{{ $data->buyPrice }}</td>
                                 <td class="inner-table">{{ $data->MSRP }}</td>
+                                <td class="inner-table"><input type = "number"></td>
+                                <td class="inner-table"><button type = "button">BUY</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                <h1>confirm buy</h1>
             </div>
         </body>
     </html>
