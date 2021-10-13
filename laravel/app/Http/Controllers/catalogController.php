@@ -20,4 +20,16 @@ class CatalogController extends Controller
         ->get();
         return view('catalog',['product' => $products]);
     }
+
+    public function mulAccestest($id){
+        $products = DB::table('products')
+        ->select('productCode','productName','productLine','productScale','productVendor','productDescription','buyPrice','MSRP')
+        ->orderBy('productVendor')
+        ->get();
+        $employees = DB::table('employees')
+        ->select('employeeNumber','lastName','firstName')
+        ->where('employeeNumber',$id)
+        ->get();
+        return view('catalog',['product' => $products,'employee' => $employees]);
+    }
 }

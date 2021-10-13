@@ -2,13 +2,21 @@
     <html lang="{{ app()->getLocale() }}">
         <head>
             <title>View Products | Product Store</title>
+            <!-- Fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+            <!-- Styles -->
+            <link rel="stylesheet" type="text/css" href="/css/main.css">
         </head>
         <body>
             <div class="links">
             <a href="{{ config('app.url')}}">Home</a>
             </div>
+            <div>
+                @foreach($employee as $employee)
+                <h1>{{$employee -> lastName}}  {{$employee -> firstName}} {{$employee -> employeeNumber}}</h1>
+                @endforeach
+            </div>
             <div class="flex-center position-ref full-height">
-            
                 <div class="content">
                     <h1>Here's a list of available products</h1>
                     <table>
