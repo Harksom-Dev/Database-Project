@@ -16,6 +16,12 @@
                 <h1>{{$employee -> lastName}}  {{$employee -> firstName}} {{$employee -> employeeNumber}}</h1>
                 @endforeach
             </div>
+            <script>
+                function test(){
+                    document.getElementById("demo").innerHTML = "Hello JavaScript!";
+                }
+                
+            </script>
             <div class="flex-center position-ref full-height">
                 <div class="content">
                     <h1>Here's a list of available products</h1>
@@ -43,7 +49,7 @@
                                 <td class="inner-table">{{ $data->buyPrice }}</td>
                                 <td class="inner-table">{{ $data->MSRP }}</td>
                                 <td class="inner-table"><input type = "number"></td>
-                                <td class="inner-table"><button type = "button">BUY</td>
+                                <td class="inner-table"><button id="demo" type = "button" onclick= test()>BUY</td>
                             </tr>
                             @endforeach
                         </tbody>
