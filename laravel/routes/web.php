@@ -27,3 +27,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 use App\Http\Controllers\catalogController;
 
 Route::get('/catalog/{id}',[catalogController::class,'mulAccestest']);
+Route::post('catalog/add',[catalogController::class,'addorderDetail'])->name('addorderDetail');

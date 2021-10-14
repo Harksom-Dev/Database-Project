@@ -24,7 +24,7 @@
             </script>
             <div class="flex-center position-ref full-height">
                 <div class="content">
-                    <h1>Here's a list of available products</h1>
+                    <h1>Available products</h1>
                     <table>
                         <thead>
                             <td>productCode</td>
@@ -35,27 +35,42 @@
                             <td>productDescription</td>
                             <td>buyPrice</td>
                             <td>MSRP</td>
+                            <td>QuantityToBuy</td>
                         </thead>
                     
                         <tbody>
                             @foreach( $product as $data )
                             <tr>
-                                <td>{{ $data->productCode }}</td>
-                                <td class="inner-table">{{ $data->productName }}</td>
-                                <td class="inner-table">{{ $data->productLine }}</td>
-                                <td class="inner-table">{{ $data->productScale }}</td>
-                                <td class="inner-table">{{ $data->productVendor }}</td>
-                                <td class="inner-table">{{ $data->productDescription }}</td>
-                                <td class="inner-table">{{ $data->buyPrice }}</td>
-                                <td class="inner-table">{{ $data->MSRP }}</td>
-                                <td class="inner-table"><input type = "number"></td>
-                                <td class="inner-table"><button id="demo" type = "button" onclick= test()>BUY</td>
+                                <form action= "{{route('addorderDetail')}}" method ="post">
+                                    @csrf
+                                    <td>{{ $data->productCode }}</td>
+                                    <td class="inner-table">{{ $data->productName }}</td>
+                                    <td class="inner-table">{{ $data->productLine }}</td>
+                                    <td class="inner-table">{{ $data->productScale }}</td>
+                                    <td class="inner-table">{{ $data->productVendor }}</td>
+                                    <td class="inner-table">{{ $data->productDescription }}</td>
+                                    <td class="inner-table" name="buyPrice">{{ $data->buyPrice }}</td>
+                                    <td class="inner-table">{{ $data->MSRP }}</td>
+                                    <td>  
+                                        <div class="mb-3">
+                                        <input type="number" class="form-control" name="quantity">
+                                        </div>
+                                    </td>
+                                    <td><button type="submit" class="btn btn-primary" onclick= >BUY</button> </td> 
+                                </form>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @error('quantity')
+                    <span>{{$message}}</span>
+                    @enderror
                 </div>
                 <h1>confirm buy</h1>
+                <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"></span>
+                <input type="text" class="form-control" placeholder="CustomerNumber" aria-label="CustomerNumber" aria-describedby="basic-addon1">
+            </div>
             </div>
         </body>
     </html>
