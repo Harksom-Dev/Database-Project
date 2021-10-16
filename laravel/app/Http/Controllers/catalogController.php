@@ -19,19 +19,20 @@ class CatalogController extends Controller
         ->select('productCode','productName','productLine','productScale','productVendor','productDescription','buyPrice','MSRP')
         ->orderBy('productVendor')
         ->get();
+        
         return view('catalog',['product' => $products]);
     }
 
-    public function mulAccestest($id){
+    public function mulAccestest(){
         $products = DB::table('products')
-        ->select('productCode','productName','productLine','productScale','productVendor','productDescription','buyPrice','MSRP')
-        ->orderBy('productVendor')
         ->get();
-        $employees = DB::table('employees')
-        ->select('employeeNumber','lastName','firstName')
-        ->where('employeeNumber',$id)
-        ->get();
-        return view('catalog',['product' => $products,'employee' => $employees]);
+        $vendor = DB::table('products')
+        ->groupBy('productVendor')
+        ->get('productVendor');
+        $scale = DB::table('products')
+        ->groupBy('productScale')
+        ->get('productScale');
+        return view('catalog',compact('products','vendor','scale'));
     }
 
     public function addorderDetail(Request $request){
