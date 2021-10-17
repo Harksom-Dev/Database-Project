@@ -15,7 +15,7 @@
             <div class="container">
                 <div class ="col-md-8">
                     <h1>ProductCatalog</h1>
-                    @error('qty')
+                    @error('quantity')
                                     <div class="alert alert-danger alert-block">
                                         <button type="button" class="close" data-dismiss="alert">×</button>	
                                         <strong>{{ $message }}</strong>
@@ -69,7 +69,7 @@
                             <td>{{$row ->MSRP}}</td>
                             <form action ="{{route('order')}}" method = "post">
                                 @csrf
-                                <td><input type ="number" name="qty"></td>
+                                <td><input type ="number" name="quantity"></td>
                                 <td><input type ="hidden" value ="{{$row ->productCode}}" name = "productCode"></td>
                                 <td><button>BUY</button>
                                 </td>

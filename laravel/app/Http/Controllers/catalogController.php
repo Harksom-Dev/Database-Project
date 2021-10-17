@@ -14,19 +14,12 @@ class CatalogController extends Controller
         return $products;
     }
 
-    public function showtest(Request $request){
-        $products = DB::table('products')
-        ->get();
+    public function memberCheck(){
+        return view('memberCheck');
+    }
 
-        $vendor = DB::table('products')
-        ->groupBy('productVendor')
-        ->get('productVendor');
-
-        $scale = DB::table('products')
-        ->groupBy('productScale')
-        ->get('productScale');
-
-        return view('catalog',compact('products','vendor','scale'));
+    public function check(Request $request){
+        
     }
 
     public function mulAccestest(){
@@ -84,14 +77,12 @@ class CatalogController extends Controller
     }
 
     public function addorder(Request $request){
-        // $request->validate([
-        //     'qty'=>'required|integer|min:0'
-        // ]);
-        $this->validate($request,[
-            'qty' => 'required|numeric|gt:0',
+        
+        $request->validate([
+            'quantity' => 'required|numeric|gt:0',
             ],
             [
-            'qty.required' => "please input Buyquantity",
+            'quantity.required' => "please input Buyquantity",
             ]);
         $qty = $request -> qty;
     }
