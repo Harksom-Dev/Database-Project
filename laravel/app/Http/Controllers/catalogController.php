@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-
+use App\Http\Controllers\Session;
 class CatalogController extends Controller
 {
     public function catalog()
@@ -83,19 +83,16 @@ class CatalogController extends Controller
 
     }
 
-    public function addorderDetail(Request $request){
-        $products = DB::table('products')
-        ->select('productCode','productName','productLine','productScale','productVendor','productDescription','buyPrice','MSRP')
-        ->orderBy('productVendor')
-        ->get();
-        dd($request);
+    public function addorder(Request $request){
         // $request->validate([
-        //     'quantity' => 'required'
+        //     'qty'=>'required|integer|min:0'
         // ]);
-        // $orderdetails -> quantityOrdered = $request -> quantity;
-        // $orderdetails -> productCode = $products -> productCode;
-
-    
-
+        $this->validate($request,[
+            'qty' => 'required|numeric|gt:0',
+            ],
+            [
+            'qty.required' => "please input Buyquantity",
+            ]);
+        $qty = $request -> qty;
     }
 }

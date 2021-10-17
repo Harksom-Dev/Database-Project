@@ -15,6 +15,12 @@
             <div class="container">
                 <div class ="col-md-8">
                     <h1>ProductCatalog</h1>
+                    @error('qty')
+                                    <div class="alert alert-danger alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>	
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                    @enderror
                     <form action ="{{route('group')}}" method="post">
                         @csrf
                         <label>Group BY</label>
@@ -49,6 +55,7 @@
                             <th>ProductScale</th>
                             <th>quantityInStock</th>
                             <th>Price</th>
+                            <th>BuyQty</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,7 +67,13 @@
                             <td>{{$row ->productScale}}</td>
                             <td>{{$row ->quantityInStock}}</td>
                             <td>{{$row ->MSRP}}</td>
-                            <td><input type ="submit" value ="BUY"></td>
+                            <form action ="{{route('order')}}" method = "post">
+                                @csrf
+                                <td><input type ="number" name="qty"></td>
+                                <td><input type ="hidden" value ="{{$row ->productCode}}" name = "productCode"></td>
+                                <td><button>BUY</button>
+                                </td>
+                            </form>
                             </tr>
                             @endforeach
                         </tbody>
@@ -68,6 +81,7 @@
                         <div class ="d-flex justify-content-center">
                             {!! $products->links() !!}
                         </div>
+                        
                 </div>
                 
             </div>
