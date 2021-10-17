@@ -150,11 +150,16 @@
     <div class="wrapper fadeInDown">
         <div id="formContent">
 
-            <form action="" method="post">
+            <form action="{{route('check')}}" method="post">
                 @csrf
-                <input type="text" id="login" class="fadeIn second" name="phone" placeholder="PhoneNumber">
+                <input type="text" id="login" class="fadeIn second" name="customerNumber" placeholder="customerNumber">
                 <input type="submit" class="fadeIn fourth" value="Membercheck">
             </form>
+            @error('customerNumber')
+                <div class="alert alert-danger alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
 
 
         </div>

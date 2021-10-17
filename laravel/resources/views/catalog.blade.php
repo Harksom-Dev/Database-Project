@@ -16,10 +16,9 @@
                 <div class ="col-md-8">
                     <h1>ProductCatalog</h1>
                     @error('quantity')
-                                    <div class="alert alert-danger alert-block">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>	
-                                        <strong>{{ $message }}</strong>
-                                    </div>
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
                     @enderror
                     <form action ="{{route('group')}}" method="post">
                         @csrf

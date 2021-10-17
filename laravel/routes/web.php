@@ -31,6 +31,6 @@ Route::get('/customercheck',[catalogController::class,'memberCheck'])->name('mem
 Route::post('/checking',[catalogController::class,'check'])->name('check');
 
 //main catalog route
-Route::get('/catalog',[catalogController::class,'mulAccestest']);
+Route::get('/catalog',[catalogController::class,'catalog'])->name('catalog');
 Route::post('/catalog',[catalogController::class,'group'])->name('group');
 Route::post('/catalog/or',[catalogController::class,'addorder'])->name('order');

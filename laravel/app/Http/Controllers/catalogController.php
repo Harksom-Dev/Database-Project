@@ -5,28 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Session;
 class CatalogController extends Controller
 {
-    public function catalog()
-    {
-        $products = DB::table('products')->get();
-        return $products;
-    }
+    
 
     public function memberCheck(){
         return view('memberCheck');
     }
 
     public function check(Request $request){
+        $request->validate([
+            'customerNumber' => 'required|numeric', //regex is phone format
+            ]);
+        $customerNumber = $request->customerNumber;
+        $customer = DB::table('customers')
+        ->where('customerNumber',$customerNumber)
+        ->get();
+        
+        if($customer->first()){ //check if query is empty or not
+            return redirect()->route('catalog');
+            
+        }else{
+            //redirect to register member
+            return view('test');
+        }
+        
         
     }
 
-    public function mulAccestest(){
+    public function catalog(){
         $products = DB::table('products')
         ->paginate(15);
         // ->get();
-
         $vendor = DB::table('products')
         ->groupBy('productVendor')
         ->get('productVendor');
