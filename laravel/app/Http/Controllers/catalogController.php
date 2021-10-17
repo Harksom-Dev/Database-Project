@@ -31,7 +31,8 @@ class CatalogController extends Controller
 
     public function mulAccestest(){
         $products = DB::table('products')
-        ->get();
+        ->paginate(15);
+        // ->get();
 
         $vendor = DB::table('products')
         ->groupBy('productVendor')
@@ -58,25 +59,26 @@ class CatalogController extends Controller
         
         if($gvendor == "productVendor" || $gvendor == 0){
             if($gscale == "productScale" || $gscale == 0){
-                $products = DB::table('products')
-                ->get();
+                $products = DB::table('products')->paginate(15);
+                // ->get();
             }else{
                 $products = DB::table('products')
                 ->where('productScale',$gscale)
-                ->get();
+                ->paginate(15);
             }
         }else{
             if($gscale == "productScale" || $gscale == 0){
                 $products = DB::table('products')
                 ->where('productVendor',$gvendor)
-                ->get();
+                ->paginate(15);
             }else{
                 $products = DB::table('products')
                 ->where('productScale',$gscale)
                 ->where('productVendor',$gvendor)
-                ->get();
+                ->paginate(15);
             }
         }
+        
         return view('catalog',compact('products','vendor','scale'));
 
     }
