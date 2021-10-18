@@ -20,6 +20,11 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @enderror
+                    @if(session()->has('msg'))
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ session()->get('msg') }}</strong>
+                        </div>
+                    @endif
                     <form action ="{{route('catalog') }}" method="post">
                         @csrf
                         <label>Group BY</label>

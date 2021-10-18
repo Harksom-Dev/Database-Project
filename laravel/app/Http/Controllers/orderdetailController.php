@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Cart;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Session;
 class orderdetailController extends Controller
 {
     /**
@@ -40,9 +41,38 @@ class orderdetailController extends Controller
             [
             'quantity.required' => "please input Buyquantity",
             ]);
-        dd($request -> quantity);
+        $quantity = $request -> quantity;
+        $productcode = $request -> productCode;
+
+        $curqty = DB::table('products')
+        ->select('quantityInStock')
+        ->where('productCode',$productcode)
+        ->value('quantityInStock');
+        if($quantity > $curqty){
+            return redirect()->back()->with('msg','you cant buy more than this product quantity');
+            
+        }
         
-    
+        $product = DB::table('products')
+        ->where('productCode',$productcode)
+        ->get();
+       
+        foreach ($product as $product) {
+            $product = $product;
+            }
+        //dd($product);
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($product,$product->productCode);
+
+        $request->session()->put('cart',$cart);
+        dd($request ->session()->get('cart'));
+
+        // add to orderdetail 
+        $last_row=DB::table('orderdetails')->orderBy('orderNumber', 'DESC')->first();
+        $last_row = $last_row->orderNumber;
+        dd($last_row);
     }
 
     /**
