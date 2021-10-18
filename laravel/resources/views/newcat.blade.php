@@ -20,7 +20,7 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @enderror
-                    <form action ="{{route('catalog') }}" method="post">
+                    <form action ="{{route('catalog')}}" method="post">
                         @csrf
                         <label>Group BY</label>
                         <div class="input-group">
