@@ -95,6 +95,13 @@
                         </div>
                         
                 </div>
+                <div class = "row">
+                    <div align = "right">
+                        
+                        <button class="btn btn-secondary btn-lg" type="button" onclick="window.location='{{ route("cart.index") }}'">checkIn</button>
+                    </div>
+                    
+                </div>
                 
             </div>
         </body>
