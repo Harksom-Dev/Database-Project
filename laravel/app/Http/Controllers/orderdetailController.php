@@ -56,18 +56,19 @@ class orderdetailController extends Controller
         $product = DB::table('products')
         ->where('productCode',$productcode)
         ->get();
-       
+
         foreach ($product as $product) {
             $product = $product;
             }
-        //dd($product);
+        $product -> quantityInStock = $quantity;
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product,$product->productCode);
 
         $request->session()->put('cart',$cart);
-        dd($request ->session()->get('cart'));
+        //dd($request ->session()->get('cart'));
+        return redirect()->route('catalog');
 
         // add to orderdetail 
         $last_row=DB::table('orderdetails')->orderBy('orderNumber', 'DESC')->first();
@@ -75,6 +76,16 @@ class orderdetailController extends Controller
         dd($last_row);
     }
 
+
+    public function test(Request $request){
+        dd($request ->session()->get('cart'));
+    }
+
+    public function test2(Request $request){
+        $cart = new Cart(null);
+        $request->session()->put('cart',$cart);
+        return redirect()->route('catalog');
+    }
     /**
      * Display the specified resource.
      *

@@ -8,7 +8,7 @@ class Cart{
 
     public function __construct($oldCart){
         if($oldCart){
-            $this->items = $oldCart->item;
+            $this->items = $oldCart->items;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
         } 
@@ -16,17 +16,17 @@ class Cart{
     }
 
     public function add($item,$id){
-        $storedItem = ['qty' => 0 , 'price' => $item->MSRP,'item' => $item];
+        $storedItem = ['qty' => $item->quantityInStock , 'price' => $item->MSRP,'item' => $item];
         if($this ->items){
             if(array_key_exists($id,$this->items)){
                 $storedItem = $this->items[$id];
             }
         }
 
-        $storedItem['qty']++;
+        // $storedItem['qty']++;
         $storedItem['price'] = $item->MSRP * $storedItem['qty'];
         $this->items[$id] = $storedItem;
-        $this->totalQty++;
-        $this->totalPrice += $item->MSRP;
+        $this->totalQty+= $item->quantityInStock;
+        $this->totalPrice += $item->MSRP * $item->quantityInStock;
     }
 }
