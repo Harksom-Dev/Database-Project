@@ -66,10 +66,12 @@
                             <td>{{$row ->productScale}}</td>
                             <td>{{$row ->quantityInStock}}</td>
                             <td>{{$row ->MSRP}}</td>
-                            <form action ="{{route('order')}}" method = "post">
+                            <form action ="{{route('cart.store')}}" method = "post">
                                 @csrf
                                 <td><input type ="number" name="quantity"></td>
                                 <td><input type ="hidden" value ="{{$row ->productCode}}" name = "productCode"></td>
+                                <td><input type ="hidden" value ="{{$row ->productName}}" name = "productName"></td>
+                                <td><input type ="hidden" value ="{{$row ->MSRP}}" name = "price"></td>
                                 <td><button>BUY</button>
                                 </td>
                             </form>

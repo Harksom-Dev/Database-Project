@@ -8,30 +8,6 @@ use Illuminate\Validation\Rule;
 class CatalogController extends Controller
 {
     
-
-    public function memberCheck(){
-        return view('memberCheck');
-    }
-
-    public function check(Request $request){
-        $request->validate([
-            'customerNumber' => 'required|numeric', 
-            ]);
-        $customerNumber = $request->customerNumber;
-        $customer = DB::table('customers')
-        ->where('customerNumber',$customerNumber)
-        ->get();
-        
-        if($customer->first()){ //check if query is empty or not
-            return redirect()->route('catalog');
-        }else{
-            //redirect to register member
-            return view('test');
-        }
-        
-        
-    }
-
     public function index(){
         //dd(request()->productScale);
         $vendor = DB::table('products')
@@ -74,10 +50,8 @@ class CatalogController extends Controller
             // ->get();
             
         }
-
-
-            
-        return view('newcat',compact('products','vendor','scale'));
+    
+        return view('catalog',compact('products','vendor','scale'));
     }
 
     public function catalog(Request $request){
@@ -125,34 +99,7 @@ class CatalogController extends Controller
         return view('catalog',compact('products','vendor','scale'));
     }
 
-    public function group(Request $request){
-        $gvendor = $request -> productVendor;
-        $gscale = $request -> productScale;  
-        if($gvendor == "productVendor" || $gvendor == 0){
-            if($gscale == "productScale" || $gscale == 0){
-                $products = DB::table('products')->paginate(15);
-                // ->get();
-            }else{
-                $products = DB::table('products')
-                ->where('productScale',$gscale)
-                ->paginate(15);
-            }
-        }else{
-            if($gscale == "productScale" || $gscale == 0){
-                $products = DB::table('products')
-                ->where('productVendor',$gvendor)
-                ->paginate(15);
-            }else{
-                $products = DB::table('products')
-                ->where('productScale',$gscale)
-                ->where('productVendor',$gvendor)
-                ->paginate(15);
-            }
-        }
-        
-        return redirect()->route('catalog',[$request]);
-
-    }
+    
 
     public function addorder(Request $request){
         

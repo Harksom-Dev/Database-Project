@@ -24,14 +24,21 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-use App\Http\Controllers\catalogController;
+use App\Http\Controllers\customerController;
 
 //route to check if customer have member or not
-Route::get('/customercheck',[catalogController::class,'memberCheck'])->name('memcheck');
-Route::post('/checking',[catalogController::class,'check'])->name('check');
+Route::get('/customercheck',[customerController::class,'memberCheck'])->name('memcheck');
+Route::post('/checking',[customerController::class,'check'])->name('check');
 
+
+use App\Http\Controllers\catalogController;
 //main catalog route
 Route::get('/catalog',[catalogController::class,'index'])->name('catalog');
 Route::post('/catalog',[catalogController::class,'index'])->name('catalog');
 // Route::post('/group',[catalogController::class,'group'])->name('group');
 Route::post('/catalog/or',[catalogController::class,'addorder'])->name('order');
+
+use App\Http\Controllers\orderdetailController;
+//orderdetail route
+Route::get('/cart',[orderdetailController::class,'index'])->name('cart.index');
+Route::post('/cart',[orderdetailController::class,'store'])->name('cart.store');
