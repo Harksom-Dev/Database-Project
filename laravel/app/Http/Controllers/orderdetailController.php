@@ -5,6 +5,7 @@ use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Carbon\Carbon;
 class orderdetailController extends Controller
 {
     /**
@@ -130,6 +131,14 @@ class orderdetailController extends Controller
         if($curdis == null){
             return redirect()->back()->with('msg','This Code is unvalid');
         }
+        $exptime = DB::table('promotioncode')
+        ->select('expDate')
+        ->where('codeID',$discoutcode)
+        ->get();
+        $test = json_decode($exptime);
+        $exptime = $test[0]->expDate;
+        $expd = new Carbon($exptime);
+        dd($expd->isfuture());
         //insert query
         //cal all - discount
         //cal pointEarn
