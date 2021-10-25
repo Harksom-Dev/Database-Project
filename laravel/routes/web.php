@@ -45,5 +45,7 @@ Route::post('/cart',[orderdetailController::class,'store'])->name('cart.store');
 
 Route::delete('/cartremove',[orderdetailController::class,'remove'])->name('cart.remove');
 
+Route::get('/order',[orderdetailController::class,'order'])->name('order.index');
+
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');

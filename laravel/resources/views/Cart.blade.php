@@ -29,7 +29,7 @@
             <tbody>
             @if($items != null)
             @foreach($items as $row)
-            @if($row != null)
+            <!-- @if($row != null) -->
                 <tr>
                 <th>{{$row['name']}}</th>
                 <td>{{$row['qty']}}</td>
@@ -43,7 +43,7 @@
                     </td>
                 </form>
                 </tr>
-                @endif
+                <!-- @endif -->
             @endforeach
             @endif
                 <tr>
@@ -53,6 +53,18 @@
                 </tr>
             </tbody>
         </table>
+        </div>
+        <div class = row>
+            <br>
+            <form action = "{{route('order.index')}}" method = "post">
+                @csrf
+                @method('get')
+                <label>Discount Code</label>
+                <div class="input-group">
+                <input type="text" class="form-control" placeholder="Discount Code"aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Check</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

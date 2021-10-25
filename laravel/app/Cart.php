@@ -22,6 +22,7 @@ class Cart{
                 $storedItem = $this->items[$id];
             }
         }
+        
 
         $storedItem['qty'] += $item->quantityInStock;
         $storedItem['price'] = $item->MSRP * $storedItem['qty'];
@@ -32,8 +33,9 @@ class Cart{
 
     public function remove($id){
         $storedItem = $this->items[$id];
-        $this->items[$id] = null;
+        // $this->items[$id] = null;
+        unset($this->items[$id]);
         $this->totalQty -= $storedItem['qty'];
-        $this->totalPrice -= $storedItem['price'] * $storedItem['qty'];
+        $this->totalPrice -= $storedItem['price'];
     }
 }
