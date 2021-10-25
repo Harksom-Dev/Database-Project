@@ -27,7 +27,9 @@
                 </tr>
             </thead>
             <tbody>
+            @if($items != null)
             @foreach($items as $row)
+            @if($row != null)
                 <tr>
                 <th>{{$row['name']}}</th>
                 <td>{{$row['qty']}}</td>
@@ -36,11 +38,14 @@
                     @csrf
                     @method('delete')
                     <td><input type ="hidden" value ="{{$row['name']}}" name = "name"></td>
+                    <td><input type ="hidden" value ="{{$row['id']}}" name = "id"></td>
                     <td><button class ="btn btn-danger">REMOVE</button>
                     </td>
                 </form>
                 </tr>
+                @endif
             @endforeach
+            @endif
                 <tr>
                 <th>Total</th>
                 <td>{{$totalqty}}</td>

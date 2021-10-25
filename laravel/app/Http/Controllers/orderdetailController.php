@@ -40,12 +40,22 @@ class orderdetailController extends Controller
         $request->session()->put('cart',$cart);
         return redirect()->route('catalog');
     }
+
     public function remove(Request $request){
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
+        $name = $request->name;
+        $id = $request->id;
         
-        return view('test');
+        $cart->remove($id);
+
+        $request->session()->put('cart',$cart);
+
+        //dd($request ->session()->get('cart'));
+
+        return redirect()->route('cart.index');
     }
+
     /**
      * Store a newly created resource in storage.
      *
