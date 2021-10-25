@@ -14,9 +14,31 @@ class orderdetailController extends Controller
      */
     public function index()
     {
-        return view('cart');
+        if(!session::has('cart')){
+            return view('test');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        $items = $cart->items;
+        $totalprice = $cart->totalPrice;
+        
+        // return $items;
+
+        return view('cart',compact('items'));
     }
 
+    public function test(Request $request){
+        dd($request ->session()->get('cart'));
+        
+        //return $request;
+    }
+
+    public function test2(Request $request){
+        $cart = new Cart(null);
+        $request->session()->put('cart',$cart);
+        return redirect()->route('catalog');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -71,21 +93,13 @@ class orderdetailController extends Controller
         return redirect()->route('catalog');
 
         // add to orderdetail 
-        $last_row=DB::table('orderdetails')->orderBy('orderNumber', 'DESC')->first();
-        $last_row = $last_row->orderNumber;
-        dd($last_row);
+        // $last_row=DB::table('orderdetails')->orderBy('orderNumber', 'DESC')->first();
+        // $last_row = $last_row->orderNumber;
+        // dd($last_row);
     }
 
 
-    public function test(Request $request){
-        dd($request ->session()->get('cart'));
-    }
-
-    public function test2(Request $request){
-        $cart = new Cart(null);
-        $request->session()->put('cart',$cart);
-        return redirect()->route('catalog');
-    }
+    
     /**
      * Display the specified resource.
      *

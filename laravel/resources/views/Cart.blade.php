@@ -6,6 +6,8 @@
     <title>Cart</title>
 </head>
 <body>
-    Carttttt
+    @foreach($items as $items)
+    {{$items['price']}}
+    @endforeach
 </body>
 </html>

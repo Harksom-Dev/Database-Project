@@ -16,14 +16,14 @@ class Cart{
     }
 
     public function add($item,$id){
-        $storedItem = ['qty' => $item->quantityInStock , 'price' => $item->MSRP,'item' => $item];
+        $storedItem = ['qty' => 0 , 'price' => $item->MSRP,'item' => $item,'name' => $item->productName];
         if($this ->items){
             if(array_key_exists($id,$this->items)){
                 $storedItem = $this->items[$id];
             }
         }
 
-        // $storedItem['qty']++;
+        $storedItem['qty'] += $item->quantityInStock;
         $storedItem['price'] = $item->MSRP * $storedItem['qty'];
         $this->items[$id] = $storedItem;
         $this->totalQty+= $item->quantityInStock;
