@@ -39,16 +39,9 @@ class orderdetailController extends Controller
         $request->session()->put('cart',$cart);
         return redirect()->route('catalog');
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function remove(Request $request){
+        return view('test');
     }
-
     /**
      * Store a newly created resource in storage.
      *

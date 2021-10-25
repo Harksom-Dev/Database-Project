@@ -77,7 +77,7 @@
                             <td>{{$row ->productScale}}</td>
                             <td>{{$row ->quantityInStock}}</td>
                             <td>{{$row ->MSRP}}</td>
-                            <form action ="{{route('cart.store')}}" method = "post">
+                            <form action ="{{route('cart.remove')}}" method = "post">
                                 @csrf
                                 <td><input type ="number" name="quantity"></td>
                                 <td><input type ="hidden" value ="{{$row ->productCode}}" name = "productCode"></td>
