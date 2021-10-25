@@ -42,7 +42,8 @@ use App\Http\Controllers\orderdetailController;
 //orderdetail route
 Route::get('/cart',[orderdetailController::class,'index'])->name('cart.index');
 Route::post('/cart',[orderdetailController::class,'store'])->name('cart.store');
-Route::post('/cart',[orderdetailController::class,'remove'])->name('cart.remove');
+
+Route::delete('/cartremove',[orderdetailController::class,'remove'])->name('cart.remove');
 
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');

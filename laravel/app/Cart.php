@@ -29,4 +29,19 @@ class Cart{
         $this->totalQty+= $item->quantityInStock;
         $this->totalPrice += $item->MSRP * $item->quantityInStock;
     }
+
+    public function remove($item,$id){
+        $storedItem = ['qty' => 0 , 'price' => $item->MSRP,'item' => $item,'name' => $item->productName];
+        if($this ->items){
+            if(array_key_exists($id,$this->items)){
+                $storedItem = $this->items[$id];
+            }
+        }
+
+        $storedItem['qty'] += $item->quantityInStock;
+        $storedItem['price'] = $item->MSRP * $storedItem['qty'];
+        $this->items[$id] = $storedItem;
+        $this->totalQty+= $item->quantityInStock;
+        $this->totalPrice += $item->MSRP * $item->quantityInStock;
+    }
 }

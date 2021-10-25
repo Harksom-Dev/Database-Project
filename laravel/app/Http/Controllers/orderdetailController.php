@@ -22,10 +22,11 @@ class orderdetailController extends Controller
 
         $items = $cart->items;
         $totalprice = $cart->totalPrice;
+        $totalqty = $cart->totalQty;
         
-        // return $items;
+        
 
-        return view('cart',compact('items'));
+        return view('cart',compact('items','totalprice','totalqty'));
     }
 
     public function test(Request $request){
@@ -40,6 +41,9 @@ class orderdetailController extends Controller
         return redirect()->route('catalog');
     }
     public function remove(Request $request){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        
         return view('test');
     }
     /**
