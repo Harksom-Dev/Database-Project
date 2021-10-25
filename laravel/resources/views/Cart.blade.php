@@ -45,25 +45,48 @@
                 </tr>
                 <!-- @endif -->
             @endforeach
-            @endif
                 <tr>
                 <th>Total</th>
                 <td>{{$totalqty}}</td>
                 <td>{{$totalprice}}</td>
                 </tr>
+            @else
+            <tr>
+                <th>Total</th>
+                <td>0</td>
+                <td>0</td>
+                </tr>
+            @endif
+                
             </tbody>
         </table>
         </div>
-        <div class = row>
-            <br>
+        <div class = card style="width: 40rem;">
+            
             <form action = "{{route('order.index')}}" method = "post">
                 @csrf
-                @method('get')
-                <label>Discount Code</label>
-                <div class="input-group">
-                <input type="text" class="form-control" placeholder="Discount Code"aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Check</button>
+                <!-- @method('get') -->
+                <div class ="card-title">
+                    
+                    <label>Discount Code</label>
                 </div>
+                
+                <div class="input-group card-body" >
+                    <input type="text" class="form-control" placeholder="Discount Code" aria-describedby="button-addon2" name = "code">
+                    <input type="text" class="form-control" placeholder="customerNumber" aria-describedby="button-addon2" name = "customerNumber">
+                    <button class="btn btn-secondary btn-lg btn btn-success" type="submit" >Confirm</button>
+                    
+                </div>
+                @error('customerNumber')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                @enderror
+                @if(session()->has('msg'))
+                    <div class="alert alert-danger alert-block">
+                        <strong>{{ session()->get('msg') }}</strong>
+                    </div>
+                @endif
             </form>
         </div>
     </div>

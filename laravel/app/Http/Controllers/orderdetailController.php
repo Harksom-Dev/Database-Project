@@ -105,7 +105,37 @@ class orderdetailController extends Controller
         // dd($last_row);
     }
     public function order(Request $request){
+        $request->validate([
+            'customerNumber' => 'required|numeric|gt:0',
+            ],
+            [
+            'customerNumber.required' => "please input customerNumber",
+            ]);
         
+        $customer = DB::table('customers')
+        ->select('*')
+        ->where('customerNumber',$request->customerNumber)
+        ->get();
+        
+        
+        if($customer->isEmpty()){
+            return redirect()->back()->with('msg','This customer is not a member');
+        }
+        $discoutcode = $request->code;
+        $curdis = DB::table('promotioncode')
+        ->select('discount')
+        ->where('codeID',$discoutcode)
+        ->value('discount');
+
+        if($curdis == null){
+            return redirect()->back()->with('msg','This Code is unvalid');
+        }
+        //insert query
+        //cal all - discount
+        //cal pointEarn
+        //
+
+
         return view('test');
     }
 }

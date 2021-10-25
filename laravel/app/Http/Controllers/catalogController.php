@@ -101,14 +101,5 @@ class CatalogController extends Controller
 
     
 
-    public function addorder(Request $request){
-        
-        $request->validate([
-            'quantity' => 'required|numeric|gt:0',
-            ],
-            [
-            'quantity.required' => "please input Buyquantity",
-            ]);
-        $qty = $request -> qty;
-    }
+    
 }

@@ -98,7 +98,7 @@
                 <div class = "row">
                     <div align = "right">
                         
-                        <button class="btn btn-secondary btn-lg" type="button" onclick="window.location='{{ route("cart.index") }}'">ฉheckIn</button>
+                        <button class="btn btn-secondary btn-lg btn btn-success" type="button" onclick="window.location='{{ route("cart.index") }}'">CheckIn</button>
                     </div>
                     
                 </div>
