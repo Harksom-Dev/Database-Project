@@ -157,6 +157,9 @@ class orderdetailController extends Controller
 
         //get total price
         $totalprice = $cart->totalPrice - $curdis;
+        if($totalprice < 0){
+            $totalprice = 0;
+        }
         //call total point earn
         $pointEarn = $totalprice / 100;
         //get latest ordernumber
@@ -177,7 +180,7 @@ class orderdetailController extends Controller
         $orders["pointEarn"] = $pointEarn;
         //dd($orders);
         //insert to orderstable
-        //DB::table('orders')->insert($orders);
+        DB::table('orders')->insert($orders);
 
         //orderdetail data
         $orderNum = DB::table('orders')
@@ -185,7 +188,7 @@ class orderdetailController extends Controller
         ->latest('orderNumber')
         ->value('orderNumber');
         $detail = array();
-        //insert orderdetail each product
+        //insert orderdetail each product in cart
         foreach($cart->items as $data){
             $detail["orderNumber"] = $orderNum;
             $detail["productCode"] = $data['item']->productCode;
@@ -199,8 +202,23 @@ class orderdetailController extends Controller
             DB::table('orderdetails')->insert($detail);
             $detail = array();
         }
-        // $detail = array();
-        dd($detail);
+
+        //update point in customer
+        $customerPoint = DB::table('customers')          // get customer point
+        ->select('TotalPoint')
+        ->where('customerNumber',$request->customerNumber)
+        ->value('TotalPoint');
+        
+        $customerPoint += $pointEarn;
+        
+
+        DB::table('customers')
+        ->where('customerNumber',$request->customerNumber)
+        ->update(['TotalPoint'=>$customerPoint]);
+
+        //set cart to null
+        $cart = new Cart(null);
+        $request->session()->put('cart',$cart);
 
         return view('test');
     }
