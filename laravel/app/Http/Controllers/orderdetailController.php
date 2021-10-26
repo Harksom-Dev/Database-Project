@@ -147,10 +147,6 @@ class orderdetailController extends Controller
         }
         
 
-        //insert query
-        //cal all - discount
-        //cal pointEarn
-
         //get cart from session
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -173,7 +169,9 @@ class orderdetailController extends Controller
         $orders["orderNumber"] = $orderNum+1;
         $orders["orderDate"] = Carbon::now()->todateString();
         $orders["requiredDate"] = Carbon::now()->addDays(10)->todateString();             //check again in payment normal is +10 days
-        $orders["shippedDate"] = NULL;              //employee will edit later
+        $orders["shippedDate"] = Carbon::now()->addDays(10)->todateString();              //employee will edit later now with the same normal required date
+        $orders["shippedaddressID"] = 0;
+        $orders["billAddressID"] = 0;
         $orders["status"] = "in Process";
         $orders["comments"] = "";
         $orders["customerNumber"] = $request->customerNumber;

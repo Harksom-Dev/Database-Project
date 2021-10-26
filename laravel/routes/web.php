@@ -45,7 +45,7 @@ Route::post('/cart',[orderdetailController::class,'store'])->name('cart.store');
 
 Route::delete('/cartremove',[orderdetailController::class,'remove'])->name('cart.remove');
 
-Route::post('/order',[orderdetailController::class,'order'])->name('order.index');
+Route::post('/order',[orderdetailController::class,'order'])->name('order.add');
 
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');
@@ -55,3 +55,4 @@ Route::post('/codechecking',[promotioncodeController::class,'check'])->name('cod
 
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
+Route::post('/payment',[paymentController::class,'store'])->name('payment.add');
