@@ -220,6 +220,6 @@ class orderdetailController extends Controller
         $cart = new Cart(null);
         $request->session()->put('cart',$cart);
 
-        return view('test');
+        return redirect()->route('payment',['id'=>$request->customerNumber]);
     }
 }

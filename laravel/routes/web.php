@@ -52,3 +52,6 @@ Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');
 
 use App\Http\Controllers\promotioncodeController;
 Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
+
+use App\Http\Controllers\paymentController;
+Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
