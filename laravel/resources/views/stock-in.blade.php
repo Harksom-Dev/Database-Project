@@ -1,32 +1,32 @@
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock in</title>
     
-    <title class>Stock-in</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="py12">
         <div class="container">
             <div class="row">
-                <!-- <div class = "col-md-8">
-                    <div class="table">
-                        <div class="card-header">Stock in history</div>
+                <div class="col-md-10">
+                    <div>
+                        <div align="center">
+                            <h1>Stock in history</h1>
+                        </div>
                         <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">No</th>
+                                <th scope="col">Stock ID</th> 
                                 <th scope="col">Product number</th>
+                                <th scope="col">Product name</th>
                                 <th scope="col">Employee number</th>
                                 <th scope="col">Order date</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Last modified</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,41 +35,67 @@
                             <tr>
                                 <th>{{$i++}}</th>
                                 <td>{{$row->productNumber}}</td>
+                                <td>{{$row->productName}}</td>
                                 <td>{{$row->employeeNumber}}</td>
                                 <td>{{$row->orderDate}}</td>
                                 <td>{{$row->amountOfProduct}}</td>
                                 <td>{{$row->last_Modified}}</td>
+                                <form action="{{url('/stock-in/delete/')}}">
+                                @csrf
+                                <td>
+                                    <input type="hidden" value="{{$row->productNumber}}"name="productNumber">
+                                </td>
+                                <td>
+                                    <input type="hidden" value="{{$row->employeeNumber}}"name="employeeNumber">
+                                </td>
+                                <td>
+                                    <input type="hidden" value="{{$row->orderDate}}"name="orderDate">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </td>
+                                </form>
                             </tr>
                             @endforeach
                         </tbody>
                         </table>
                     </div>
-                </div> -->
-                    <div  >
-                        <h1 class=container4>Insert new stock</h1>
-                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h2>Insert new stock</h2>
+                    @if(session("success"))
+                        <div class="alert alert-success">{{session('success')}}</div>
+                    @endif
+                    @if(session("employee"))
+                        <div class="alert alert-danger">{{session('employee')}}</div>
+                    @endif
                     <div class = "card-body">
-                        <form action="" method="post">
-                            <div>
-                                <label for="productNumber" class = "col-md-2">productNumber</label>
-                                <label for="employeeNumber" class = "col-md-3">employeeNumber</label>
-                                <label for="orderDate" class = "col-md-2">orderDate</label>
-                                <label for="amountOfProduct" class = "col-md-2">amountOfProduct</label>
-                                <label for="last_Modified" class = "col-md-2">last_Modified</label>
-                                <input type="text" class="col-md-2" name="productNumber">
-                                <input type="text" class="col-md-3" name="employeeNumber">
-                                <input type="text" class="col-md-2" name="orderDate">
-                                <input type="text" class="col-md-2" name="amountOfProduct">
-                                <input type="text" class="col-md-2" name="last_Modified">
-                                <input type="submit" value="+" class="btn btn-primary">
+                        <form action="{{route('stockin.store')}}" method="post">
+                            @csrf
+                            <div class="form">
+                                <label for="productNumber">productNumber</label> <br>
+                                <input type="text" name="productNumber"><br>
+                                <label for="employeeNumber">employeeNumber</label><br>
+                                <input type="text" name="employeeNumber"><br>
+                                <label for="orderDate">orderDate</label><br>
+                                <input type="date" name="orderDate"><br>
+                                <label for="amountOfProduct">amountOfProduct</label><br>
+                                <input type="text" name="amountOfProduct"><br>
+                                @error('productNumber') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                @error('employeeNumber') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                @error('orderDate') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                @error('amountOfProduct') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                <br>
+                                <input type="submit" class="btn btn-primary">
                             </div>
-                            <input type="submit" class="Submit">
                         </form>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
+    <div class ="d-flex justify-content-center">
+        {!! $stock_in->links() !!}
     </div>
 </body>
 

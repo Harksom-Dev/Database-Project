@@ -20,5 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
+Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
+Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
+Route::post('/stock-in/add/new',[App\Http\Controllers\stock_inController::class,'store'])->name('stockin.store');
+Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'delete']);
 
-Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index']);
+use App\Http\Controllers\promotioncodeController;
+Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
+Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
+Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
