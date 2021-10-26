@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\pagination\paginator;
 use Carbon\Carbon;
+
 
 class promotioncodeController extends Controller
 {
     //
+
     function index(){
         $promotioncode=DB::table('promotioncode')
         ->paginate(10);
@@ -46,4 +49,5 @@ class promotioncodeController extends Controller
         ->delete();
         return redirect()->back()->with('success',"delete stock is successful!");
      }
+
 }
