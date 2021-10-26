@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use app\Http\Controllers\orderController;
 
 
-/*
+
+
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -22,6 +25,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
+Route::post('/edit',[App\Http\Controllers\orderController::class, 'edit'])->name('order.edit');
+Route::post('/addedit',[App\Http\Controllers\orderController::class, 'addedit'])->name('order.addedit');
+
 
 
 use App\Http\Controllers\customerController;
@@ -56,3 +64,4 @@ Route::post('/codechecking',[promotioncodeController::class,'check'])->name('cod
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
 Route::post('/payment',[paymentController::class,'store'])->name('payment.add');
+
