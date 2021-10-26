@@ -26,6 +26,18 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
+Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
+Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
+Route::post('/stock-in/add/new',[App\Http\Controllers\stock_inController::class,'store'])->name('stockin.store');
+Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'delete']);
+
+use App\Http\Controllers\promotioncodeController;
+Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
+Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
+Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
+
+
 Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
 Route::post('/edit',[App\Http\Controllers\orderController::class, 'edit'])->name('order.edit');
 Route::post('/addedit',[App\Http\Controllers\orderController::class, 'addedit'])->name('order.addedit');
@@ -64,4 +76,5 @@ Route::post('/codechecking',[promotioncodeController::class,'check'])->name('cod
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
 Route::post('/payment',[paymentController::class,'store'])->name('payment.add');
+
 
