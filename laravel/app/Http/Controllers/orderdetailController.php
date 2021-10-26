@@ -54,7 +54,8 @@ class orderdetailController extends Controller
 
         //dd($request ->session()->get('cart'));
 
-        return redirect()->route('cart.index');
+        // return redirect()->route('cart.index');
+        return redirect()->back();
     }
 
     /**
@@ -94,8 +95,23 @@ class orderdetailController extends Controller
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product,$product->productCode);
+        if($cart ->items != null){
+            foreach($cart->items as $data){
+                $qty =  DB::table('products')
+                ->select('quantityInstock')
+                ->where('productCode',$data['id'])
+                ->value('quantityInstock');
+                
+                if($qty < $data['qty']+$quantity){
+                    return redirect()->back()->with('msg','you cant buy more than this product quantity please checkin to check');
+                }
+                
+            }
+        }
+        
 
+        $cart->add($product,$product->productCode);
+        
         $request->session()->put('cart',$cart);
         //dd($request ->session()->get('cart'));
         return redirect()->route('catalog');
@@ -150,7 +166,22 @@ class orderdetailController extends Controller
         //get cart from session
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
+        foreach($cart->items as $data){
+            $qty =  DB::table('products')
+            ->select('quantityInstock')
+            ->where('productCode',$data['id'])
+            ->value('quantityInstock');
+            
+            $qty -= $data['qty'];
+            // dd($data['id']);
+            if($qty <0){
+                $qty = 0;
+            }
 
+            DB::table('products')
+            ->where('productCode',$data['id'])
+            ->update(['quantityInstock'=>$qty]);
+        }
         //get total price
         $totalprice = $cart->totalPrice - $curdis;
         if($totalprice < 0){
@@ -213,6 +244,10 @@ class orderdetailController extends Controller
         DB::table('customers')
         ->where('customerNumber',$request->customerNumber)
         ->update(['TotalPoint'=>$customerPoint]);
+
+
+        //update product quantity
+        
 
         //set cart to null
         $cart = new Cart(null);

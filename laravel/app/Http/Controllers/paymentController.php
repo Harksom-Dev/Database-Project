@@ -106,6 +106,7 @@ class paymentController extends Controller
         $payment["checkNumber"] = $cheque;
         $payment["paymentDate"] = Carbon::now()->todateString();
         $payment["amount"] = $totalprice;
+        
         return redirect()->route('catalog')->with('msg','checkin complete');
     }
 }
