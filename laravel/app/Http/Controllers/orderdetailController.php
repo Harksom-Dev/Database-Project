@@ -100,50 +100,107 @@ class orderdetailController extends Controller
         //dd($request ->session()->get('cart'));
         return redirect()->route('catalog');
 
-        // add to orderdetail 
-        // $last_row=DB::table('orderdetails')->orderBy('orderNumber', 'DESC')->first();
-        // $last_row = $last_row->orderNumber;
-        // dd($last_row);
+        
     }
     public function order(Request $request){
+        //validate customerNumber
         $request->validate([
             'customerNumber' => 'required|numeric|gt:0',
             ],
             [
             'customerNumber.required' => "please input customerNumber",
             ]);
-        
+        //get customer detail
         $customer = DB::table('customers')
         ->select('*')
         ->where('customerNumber',$request->customerNumber)
         ->get();
         
-        
+        //check if it's null or not
         if($customer->isEmpty()){
             return redirect()->back()->with('msg','This customer is not a member');
         }
+        //get discount
         $discoutcode = $request->code;
-        $curdis = DB::table('promotioncode')
-        ->select('discount')
-        ->where('codeID',$discoutcode)
-        ->value('discount');
-
-        if($curdis == null){
-            return redirect()->back()->with('msg','This Code is unvalid');
+        if($discoutcode != null){
+            $curdis = DB::table('promotioncode')
+            ->select('discount')
+            ->where('codeID',$discoutcode)
+            ->value('discount');
+            //check discount in db
+            if($curdis == null){
+                return redirect()->back()->with('msg','This Code is unvalid');
+            }
+            //check expired date
+            $exptime = DB::table('promotioncode')
+            ->select('expDate')
+            ->where('codeID',$discoutcode)
+            ->get();
+            $test = json_decode($exptime);
+            $exptime = $test[0]->expDate;
+            $expd = new Carbon($exptime);
+            if(!$expd->isfuture()){
+                return redirect()->back()->with('msg','This Code is expired');
+            }
+        }else{
+            $curdis = 0;
         }
-        $exptime = DB::table('promotioncode')
-        ->select('expDate')
-        ->where('codeID',$discoutcode)
-        ->get();
-        $test = json_decode($exptime);
-        $exptime = $test[0]->expDate;
-        $expd = new Carbon($exptime);
-        dd($expd->isfuture());
+        
+
         //insert query
         //cal all - discount
         //cal pointEarn
-        //
 
+        //get cart from session
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        //get total price
+        $totalprice = $cart->totalPrice - $curdis;
+        //call total point earn
+        $pointEarn = $totalprice / 100;
+        //get latest ordernumber
+        $orderNum = DB::table('orders')
+        ->select('orderNumber')
+        ->latest('orderNumber')
+        ->value('orderNumber');
+        // $curDate = Carbon::now()->todateString();
+        //orders table data
+        $orders = array();
+        $orders["orderNumber"] = $orderNum+1;
+        $orders["orderDate"] = Carbon::now()->todateString();
+        $orders["requiredDate"] = Carbon::now()->addDays(10)->todateString();             //check again in payment normal is +10 days
+        $orders["shippedDate"] = NULL;              //employee will edit later
+        $orders["status"] = "in Process";
+        $orders["comments"] = "";
+        $orders["customerNumber"] = $request->customerNumber;
+        $orders["pointEarn"] = $pointEarn;
+        //dd($orders);
+        //insert to orderstable
+        //DB::table('orders')->insert($orders);
+
+        //orderdetail data
+        $orderNum = DB::table('orders')
+        ->select('orderNumber')
+        ->latest('orderNumber')
+        ->value('orderNumber');
+        $detail = array();
+        //insert orderdetail each product
+        foreach($cart->items as $data){
+            $detail["orderNumber"] = $orderNum;
+            $detail["productCode"] = $data['item']->productCode;
+            $detail["quantityOrdered"] =$data['qty'];
+            $detail["priceEach"] = $data['item']->MSRP;
+            $detail["orderLineNumber"] = 1;         // line in supermarket?   
+            $detail["statusID"] = 0;                //not sure
+            $detail["totalAmount"] = $data['price'];
+            
+            // $detail[$i] = $data['qty'];
+            DB::table('orderdetails')->insert($detail);
+            $detail = array();
+        }
+        // $detail = array();
+        dd($detail);
 
         return view('test');
     }
