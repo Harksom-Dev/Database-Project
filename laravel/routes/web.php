@@ -29,7 +29,6 @@ Route::get('/get-cus/{id}', [App\Http\Controllers\CustomersController:: class, '
 
 Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit']);
 Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit']);
-Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete']);
 
 Route::post('/customers/add',[App\Http\Controllers\CustomersController:: class,'store'])-> name('addCustomer');
 Route::patch('/customers/update/{id}',[App\Http\Controllers\CustomersController:: class,'update']);
