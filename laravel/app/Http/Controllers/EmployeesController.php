@@ -38,12 +38,13 @@ class EmployeesController extends Controller
             'firstName' => 'required|max:50',
             'lastName' => 'required|max:50',
             'extension' => 'required|max:10',
-            'email' => 'required|max:10',
-            'officeCode' => 'required|max:100',
-            'jobTitle' => 'required| max:50'
+            'email' => 'required|max:100',
+            'ofcode' => 'required|max:10',
+            'jobtitle' => 'required| max:50'
             ],
             []
         );
+
         // to record
         $orderNum = DB::table('employees')
         ->select('employeeNumber')
@@ -62,9 +63,10 @@ class EmployeesController extends Controller
         
         DB::table('employees')-> insert($data);
 
-        if(session("success")){
-            return redirect()->back()->with('success',"Employee Registered");
-        }
+
+        return redirect()->back()->with('success',"Employee Registered");
+        
+
     }
 
     public function edit($id){
@@ -90,4 +92,12 @@ class EmployeesController extends Controller
                     return redirect()->route('employee')->with('success', 'Employee Updated');
     }
 
+    public function softdelete($id){
+        
+        $delete = DB::table('employees')
+        ->where('employees.employeeNumber',$id)
+        ->delete();
+
+        return redirect()->route('employee')->with('deleted', 'Employee Deleted');
+    }
 }
