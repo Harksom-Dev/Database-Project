@@ -48,7 +48,11 @@
         @error('email') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
         @error('officeCode') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
         @error('jobTitle') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror -->
-
+        @if(session()->has('msg'))
+                        <div class="alert alert-success alert-block">
+                            <strong>{{ session()->get('msg') }}</strong>
+                        </div>
+                    @endif
         <body>
             <h1 style="text-align: center; text-transform: uppercase; color: #581845;"> Employee Management </h1>
 

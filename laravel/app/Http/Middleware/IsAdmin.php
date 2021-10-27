@@ -20,19 +20,25 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth::user()) {
-            $employeeNumber = auth::user()->employeeNumber;
+
+        if(auth::check()) {
+            $employeeNumber = auth::user()->email;
             $role = DB::table('employees')
             ->select('jobTitle')
             ->where('employeeNumber','=', $employeeNumber)
             ->get();
-                if(true){
-                    if ($role[0]->jobTitle == "President"){
-                        return $next($request);
-                    }
-                } else {
-                    return redirect() -> route('login') -> with('error',"You dont have permission to access this page");
+            // dd(empty($role[0]));
+
+            $roleArray = [  "President", "VP Sales", "VP Marketing", "Sales Manager (APAC)",
+                            "Sale Manager (EMEA)", "Sales Manager (NA)", "Sales Rep"];
+
+            if(!empty($role[0]->jobTitle)){
+                if (in_array($role[0]->jobTitle, $roleArray)){
+                    return $next($request);
                 }
+            } else {
+                return redirect() -> route('login') -> with('error',"You dont have permission to access this page");
+            }
         } else {
             return redirect() -> route('home');
         }
