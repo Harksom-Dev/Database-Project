@@ -35,12 +35,14 @@ Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'
 use App\Http\Controllers\promotioncodeController;
 Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
 Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
+Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
+
 Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
 
-<<<<<<< HEAD
+
 use App\Http\Controllers\adminController;
 Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin');
-=======
+
 
 Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
 Route::post('/edit',[App\Http\Controllers\orderController::class, 'edit'])->name('order.edit');
@@ -49,7 +51,6 @@ Route::post('/addedit',[App\Http\Controllers\orderController::class, 'addedit'])
 
 
 use App\Http\Controllers\customerController;
-
 //route to check if customer have member or not
 Route::get('/customercheck',[customerController::class,'memberCheck'])->name('memcheck');
 Route::post('/checking',[customerController::class,'check'])->name('check');
@@ -74,12 +75,10 @@ Route::post('/order',[orderdetailController::class,'order'])->name('order.add');
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');
 
-use App\Http\Controllers\promotioncodeController;
-Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
 
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
 Route::post('/payment',[paymentController::class,'store'])->name('payment.add');
 
 
->>>>>>> fcb4686024defa2dc346449956fbddc793309a83
+

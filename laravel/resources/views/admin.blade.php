@@ -59,12 +59,12 @@
                 <hr />
                 <div align="center">
                     <h4>Main menu</h4>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2" >Employee deteail</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2">Catalog</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2">Stock in</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2">Customer detail</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2">Order detail</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block p-2 my-2">Discount code</button>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('employees')}}">Employee detail</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('catalog')}}">Catalog</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('stock-in')}}">Stock in</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('customer')}}">Customer detail</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('order')}}">Order detail</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('promotioncode')}}">Discount code</a>
                 </div>
             </div>
         </div> 
