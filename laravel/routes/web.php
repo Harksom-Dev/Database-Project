@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\DB;
+
+
 use app\Http\Controllers\orderController;
+
 
 
 
@@ -22,9 +26,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// create Route
+Route::get('/employees', [App\Http\Controllers\EmployeesController:: class, 'index'])->name('employee');
+Route::get('/customers', [App\Http\Controllers\CustomersController:: class, 'index'])->name('customer');
+Route::get('/get-cus/{id}', [App\Http\Controllers\CustomersController:: class, 'getSelaeRepByEmployee']);
 
+
+Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit']);
+Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit']);
+
+Route::post('/customers/add',[App\Http\Controllers\CustomersController:: class,'store'])-> name('addCustomer');
+Route::patch('/customers/update/{id}',[App\Http\Controllers\CustomersController:: class,'update']);
+Route::get('/customers/softdelete/{id}', [App\Http\Controllers\CustomersController:: class,'softdelete']);
+
+Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:: class,'update']);
+Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])-> name('addEmployee');
+
+Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::any('/search',[App\Http\Controllers\SearchCustomerController::class, 'index'] );
+
 
 Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
 Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
@@ -75,6 +97,11 @@ Route::post('/order',[orderdetailController::class,'order'])->name('order.add');
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');
 
+<<<<<<< HEAD
+=======
+// use App\Http\Controllers\promotioncodeController;
+// Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
+>>>>>>> 2da4f290104a27c62530d5e9d649f38f1e31ec5d
 
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
