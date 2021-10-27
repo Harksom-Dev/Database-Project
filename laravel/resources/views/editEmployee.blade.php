@@ -72,7 +72,6 @@
                         <span class="input-group-text" id="inputGroup-sizing-sm">Extension</span>
                         <input  name="extension" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="extension" value="{{$employees[0]->extension}}" required>
                     </div>
-
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Email: </span>
                         <input  name="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="email"  value="{{$employees[0]->email}}" required>
@@ -87,8 +86,8 @@
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">jobTitle:</span>
-                        <select id="jobtitle" name="jobtitle" class="form-control" value="{{$employees[0]->jobTitle}}">
-                            <option value="value="{{$employees[0]->jobTitle}}">{{$employees[0]->jobTitle}}</option>
+                        <select id="jobtitle" name="jobtitle" class="form-control" >
+                            <option value="{{$employees[0]->jobTitle}}">{{$employees[0]->jobTitle}}</option>
                             <option value="President">President</option>
                             <option value="VP Sales">VP Sales</option>
                             <option value="VP Marketing">VP Marketing</option>
@@ -98,7 +97,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{url('/employee/softdelete/'.$employees[0]->employeeNumber)}}" class="btn btn-outline-danger btn-sm fa fa-trash"  onclick="return confirm('Are you certain that you want to delete ?')"></a>
+                    <a href="{{url('/employees/softdelete/'.$employees[0]->employeeNumber)}}" class="btn btn-outline-danger btn-sm fa fa-trash"  onclick="return confirm('Are you certain that you want to delete ?')"></a>
                     <button type="button" class="btn btn-secondary" onclick="history.back()">Close</button>
                     <button type="SUBMIT" class="btn btn-primary" onclick="return confirm('Do you want to save changes?')">Update</button>
                 </div>
