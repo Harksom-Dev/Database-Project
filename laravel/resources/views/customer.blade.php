@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{url('welcome')}}">home</a>
+                    <a class="nav-link active" href="{{url('admin')}}">home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('customers')}}">CustomerManagement</a>

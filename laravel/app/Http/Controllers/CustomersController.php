@@ -196,6 +196,7 @@ class CustomersController extends Controller
         $data["state"]= $request->state;
         $data["postalCode"]= $request->postalCode;
         $data["country"] = $request->country;
+        $data["primaryaddress"] = 0;
 
         DB::table('customeraddress')-> insert($data);
         return redirect()->back()->with('success',"Address Added");
