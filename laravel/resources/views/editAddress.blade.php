@@ -42,6 +42,9 @@
 
     <body>
         <h1 style="text-align: center; text-transform: uppercase; color: #581845;"> Address MAnagement</h1>
+        @if(session("msg"))
+            <div class="alert alert-danger">{{session('msg')}}</div>
+        @endif
         @if(session("success"))
             <div class="alert alert-success">{{session('success')}}</div>
         @endif
@@ -77,6 +80,7 @@
                                     <th scope="col">city</th>
                                     <th scope="col">state</th>
                                     <th scope="col">postalCode</th>
+                                    <th scope="col">Country </th>
                                     <th scope="col">   </th>
                                     <th scope="col">   </th>
                                     <th scope="col">defult</th>
@@ -101,13 +105,19 @@
                                             data-bs-city="{{$row->city}}"
                                             data-bs-state="{{$row->state}}"
                                             data-bs-postalCode="{{$row->postalCode}}"
+                                            data-bs-pA = "{{$row ->primaryaddress}}"
                                             data-bs-country="{{$row->country}}"
                                             > 
-                                            <i class="bi bi-pencil-square"></i>    Edit</a>
+                                            <i class="bi bi-pencil-square"></i>    Edit</a></td>
+                                        <td>
                                         <a href="{{url('/customers/address/delete/'.$row->addressid)}}" class="btn btn-outline-danger btn-sm fa fa-trash"  onclick="return confirm('Are you certain that you want to delete this Address?') "></a></td>
-                                        <td><select name="priAddr" id="priAdddr">
+                                        <td><!-- <select name="priAddr" id="priAdddr">
                                                 <option value="{{$row->primaryaddress}}">{{$row->primaryaddress}}</option>
-                                        </select></td>
+                                        </select> -->
+                                        <?php if ($row->primaryaddress == '0') { ?>
+                                            <p class="h6"><sub>[edit to set default]</sub></p>
+                                        <?php }else{?> <p> <mark>[Primary]</mark> </p> <?php }?>
+                                    </td>
                                     </tr>
                                 @endforeach 
                             </tbody>
@@ -120,7 +130,6 @@
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary" href="{{url('/customers')}}">Close</a>
                     <a type="button" id="addAddress1" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAddress" data-bs-cusNo="{{$customers[0]->customerNumber}}"> <i class="bi bi-plus"></i> Add</a>
-                    <a type="button" class="btn btn-primary" href="{{url('/customers')}}">Update</a>
                 </div>
                 
             </form>
@@ -145,6 +154,24 @@
         <!-- end of modal --> 
 
         <script type="text/javascript">
+
+            $('.mk-def').click(function () {
+                var button = event.relatedTarget
+                var data = button.getAttribute('data-bs-mdk');
+                
+                
+            });
+
+
+
+
+
+
+
+
+
+
+
             var addAddressModal = document.getElementById('addAddress')
             addAddressModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget
@@ -169,7 +196,7 @@
                 var state = bt.getAttribute('data-bs-state');
                 var postalCode = bt.getAttribute('data-bs-postalCode');
                 var country = bt.getAttribute('data-bs-country');
-                //var primaryaddress = bt.etAttribute('data-bs-primaryaddress');
+                var praddr = bt.getAttribute('data-bs-pA');
 
                 var addrIDInput = editAddressModal.querySelector('.hiddenid input');
                 var modalTitle = editAddressModal.querySelector('.modal-title');
@@ -180,7 +207,7 @@
                 var stateInput = editAddressModal.querySelector(' .state input');
                 var postalCodeInput = editAddressModal.querySelector('.postalCode input');
                 var countryInput = editAddressModal.querySelector('.country input');
-                //var primaryaddressInput = editAddressModal.querySelector('.selectbyph .defV option');
+                var paddrInput = editAddressModal.querySelector('.ph1');
                 
                 modalTitle.textContent = 'Edit address of ' + cusNo;
                 
@@ -192,7 +219,12 @@
                 postalCodeInput.value = postalCode;
                 countryInput.value = country;
                 addrIDInput.value = addrId;
-                //primaryaddressInput.value = primaryaddress;
+                var a ;
+                if(praddr == 1) a= 'Yes';
+                else a='No';
+                
+                paddrInput.textContent = a;
+                paddrInput.value = praddr;
             })
         </script>
 

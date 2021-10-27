@@ -113,7 +113,23 @@ class CustomersController extends Controller
 
     
     public function updateAddress(Request $request){
-        //dd($request);
+        $before = DB::table('customeraddress')
+        ->where('primaryaddress','1')
+        ->get('addressid');
+        //dd($request->addressIDPhi , $before[0]->addressid);
+        if($request->addressIDPhi== $before[0]->addressid){
+            //dd($request->primaryaddress == 0);
+            if($request->primaryaddress == 0 )
+            return redirect()->back()->with('msg','can not set primary ');
+        }else{
+            DB::table('customeraddress')
+            ->where('addressid',$before[0] -> addressid)
+            ->update([
+                'primaryaddress' => 0,
+            ]);
+
+        }
+        //dd($request)
         DB::table('customeraddress')
                     ->where('addressid',$request-> addressIDPhi)
                     ->update([
@@ -124,6 +140,7 @@ class CustomersController extends Controller
                         'state' => $request ->state,
                         'postalCode' => $request->postalCode,
                         'country' => $request->country,
+                        'primaryaddress' => $request->primaryaddres,
                     ]);
 
         return redirect()->back()->with('success', 'Customer Updated');
@@ -144,11 +161,21 @@ class CustomersController extends Controller
 
     public function addrSoftdelete($aid){
         //dd($id);
-        $delete = DB::table('customeraddress')
-        ->where('customeraddress.addressid',$aid)
-        ->delete();
+        $check = DB::table('customeraddress')
+                ->where('primaryaddress','1')
+                ->get('addressid');
 
-        return redirect()->back()->with('deleted', 'Customer Deleted');
+        if($check[0]->addressid == $aid){
+            return redirect()->back()->with('msg','can not delete primary address ');
+        }else{
+            $delete = DB::table('customeraddress')
+            ->where('customeraddress.addressid',$aid)
+            ->delete();
+    
+            return redirect()->back()->with('deleted', 'Customer Deleted');
+        }
+
+
     }
 
     public function storeAddress(Request $request){ 
@@ -169,7 +196,6 @@ class CustomersController extends Controller
         $data["state"]= $request->state;
         $data["postalCode"]= $request->postalCode;
         $data["country"] = $request->country;
-        $data["primaryaddress"] = 0;
 
         DB::table('customeraddress')-> insert($data);
         return redirect()->back()->with('success',"Address Added");

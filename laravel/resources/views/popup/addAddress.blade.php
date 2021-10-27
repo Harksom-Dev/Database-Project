@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 @csrf
-                     <!--<fieldset disabled> -->
+                    <!--<fieldset disabled> -->
                     <div class="col-8 idN">
                             <label for="customerNumber" class="form-label">customerNumber:</label>  
                             <input id ="customerNumber" type="text" class="form-control" name="customerNumber" value="" readonly>

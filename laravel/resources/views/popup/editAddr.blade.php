@@ -38,6 +38,16 @@
                         <div class="hiddenid">
                                 <input type="hidden" id="addressIDPhi" name="addressIDPhi" value="">
                         </div>
+                        <div class="col-7 pA">
+                        <label for="primaryaddres" class="form-label">Primary Address:</label>  <span style="color: red !important; display: inline; float: none;">*</span> 
+                                <!-- <input id ="primaryaddres" type="text" class="form-control" name="primaryaddres" value="" required> -->
+                                <select id="primaryaddres" name="primaryaddres" class="form-control" required>
+                                        <option class="ph1" value=""></option>        
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                </select>
+                                <i>*set to 1 to make it Primary Address</i>
+                        </div>
                         <!--</fieldset>-->  
                 </div>
                 <div class="modal-footer">
