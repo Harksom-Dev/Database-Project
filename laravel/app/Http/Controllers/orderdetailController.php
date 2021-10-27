@@ -15,9 +15,7 @@ class orderdetailController extends Controller
      */
     public function index()
     {
-        if(!session::has('cart')){
-            return view('test');
-        }
+        
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
 
@@ -166,6 +164,9 @@ class orderdetailController extends Controller
         //get cart from session
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
+        if($cart->items == null){
+            return redirect()->back()->with('msg','cart is empty');
+        }
         foreach($cart->items as $data){
             $qty =  DB::table('products')
             ->select('quantityInstock')
