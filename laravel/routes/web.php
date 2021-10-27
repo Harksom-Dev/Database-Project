@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use app\Http\Controllers\orderController;
+use app\Http\Controllers\Auth\LoginController;
 use Illuminate\http\Request;
 
 
@@ -26,7 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 use App\Http\Controllers\customHomeController;
 Route::get('president/home/', [customHomeController::class, 'presidentHome'])->name('psd.home')->middleware('is_admin');
 
-use App\Http\Controllers\Auth\LoginController;
 
 
 use App\Http\Controllers\Auth\RegisterController;
