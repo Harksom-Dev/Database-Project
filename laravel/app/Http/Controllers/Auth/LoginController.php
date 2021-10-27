@@ -46,34 +46,39 @@ class LoginController extends Controller
     public function login(request $request) {
         
         $input = $request->all();
-
-        // dd($input);
+        
+        
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
         ]);
+        
 
         $password =   DB::table('employees_logindata')
                         ->select('password')
                         ->where('employeeNumber','=',$request->username)
                         ->get();
 
+        //dd($password[0]->password,$request->password);
         // $test = array($request->password, $password[0]->password);
         // dd($test);
-
         if (password_verify($request->password, $password[0]->password)) {
-
+            
             $role = DB::table('employees')
                     ->select('jobTitle')
                     ->where('employeeNumber','=',$request->username)
                     ->get();
+            
             // dd($role[0]->jobTitle);
             switch ($role[0]->jobTitle) {
                 case "President":
                     $token = encrypt($request->username,"!@#$%^&*(");
                     $user = Auth::user();
+                    
                     // dd(Auth::check());
                     return redirect()->route('psd.home', ['token' => $token]);
+                   
+                    // return redirect()->route('psd.home');
                     break;
                 case "Sale Manager (EMEA)":
                     return redirect()->route('SaleManagertHome')-> with('success', "login completed");

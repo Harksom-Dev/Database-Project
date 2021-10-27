@@ -18,7 +18,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        dd($request);
         $input = $request->all();
+        
+
         if(!empty($input)){
             $role = DB::table('employees')
                         ->select('jobTitle')
@@ -28,6 +31,7 @@ class IsAdmin
             if(!empty($role[0])){
                 if ($role[0]->jobTitle == "President"){
                     return $next($request);
+                    // return route('psd.home');
                 }
             } else {
                 return redirect() -> route('login') -> with('error',"You dont have permission to access this page");
