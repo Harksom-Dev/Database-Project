@@ -15,8 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-
-                    you are nomal user.
+                    
+                    you are admin.
                 </div>
             </div>
         </div>

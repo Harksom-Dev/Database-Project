@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -50,8 +52,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'EmployeeID' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +65,58 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $result =   DB::table('employees')
+                    ->select('employeeNumber')
+                    ->where('employeeNumber','=',(int)$data['EmployeeID'])
+                    ->get();
+
+        if (count($result) == 0) {//dont have any match in employees database
+
+            return view('auth.register')->with('error', "dont have any match in employees database");
+
+        } else {
+
+            $result =   DB::table('employees_logindata')
+                        ->select('employeeNumber')
+                        ->where('employeeNumber','=',(int)$data['EmployeeID'])
+                        ->get();
+
+            if (count($result) == 0) {
+
+                DB::table('employees_logindata')->insert([
+                    'employeeNumber' => $data['EmployeeID'],
+                    'password' => Hash::make($data['password']),
+                ]);
+
+                return back()->with('success', "registration successful!");
+            } else {
+
+                return back()->with('error', "this employeesID is already registered");
+            }
+        }
+        
+    }
+
+    public function showRegistrationForm()
+    {
+        if (session('link')) {
+            $myPath     = session('link');
+            $registerPath  = url('/register');
+            $previous   = url()->previous();
+
+            if ($previous = $registerPath) {
+                session(['link' => $myPath]);
+            }else{
+                session(['link' => $previous]);
+            }
+        } else{
+            session(['link' => url()->previous()]);
+        }
+        return view('auth.register');
+    }
+
+    protected function redirectTo()
+    {
+        return redirect(session('link'))->with('success', 'Thank you for your previous transaction! Go to your Profile to review your transaction history.');
     }
 }
