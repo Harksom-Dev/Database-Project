@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\employees_logindata;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -48,10 +50,10 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {   
+        // dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'employeeNumber' => ['required','max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -63,11 +65,18 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+    {   
+        // $input = array();
+        // $input["employeeNumber"] = $data['employeeNumber'];
+        // $input["password"] = Hash::make($data['password']);
+        // dd($data);
+        return(User::create([
+            
+            'employeeNumber' => $data['employeeNumber'],
             'password' => Hash::make($data['password']),
-        ]);
+        ])); 
+        
+        // return DB::table('employees_logindata')->insert($input);
+        
     }
 }
