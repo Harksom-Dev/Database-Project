@@ -30,3 +30,6 @@ use App\Http\Controllers\promotioncodeController;
 Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
 Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
 Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
+
+use App\Http\Controllers\adminController;
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin');
