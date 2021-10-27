@@ -42,12 +42,15 @@
     @if(session("success"))
         <div class="alert alert-success">{{session('success')}}</div>
     @endif
-<!--         @error('firstName') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+    @if(session("deleted"))
+            <div class="alert alert-danger">{{session('deleted')}}</div>
+    @endif
+        @error('firstName') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
         @error('lastName') <div class="my-1"><span class="text-danger">{{$message}}</span</div> @enderror
         @error('extension') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
         @error('email') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
         @error('officeCode') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
-        @error('jobTitle') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror -->
+        @error('jobTitle') <div class="my-1"><span class="text-danger">{{$message}}</span></div>@enderror
 
         <body>
             <h1 style="text-align: center; text-transform: uppercase; color: #581845;"> Employee Management </h1>
