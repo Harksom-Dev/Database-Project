@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Models\employees_logindata;
+use App\Models\employees;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -51,8 +52,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
-            'EmployeeID' => ['required', 'string', 'max:255'],
+            'employeeNumber' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -66,32 +68,32 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $result =   DB::table('employees')
-                    ->select('employeeNumber')
-                    ->where('employeeNumber','=',(int)$data['EmployeeID'])
-                    ->get();
+                        ->select('employeeNumber')
+                        ->where('employeeNumber','=',(int)$data['employeeNumber'])
+                        ->get();
 
         if (count($result) == 0) {//dont have any match in employees database
 
-            return view('auth.register')->with('error', "dont have any match in employees database");
+            return back()->with('error', "dont have any match in employees database");
 
         } else {
 
             $result =   DB::table('employees_logindata')
                         ->select('employeeNumber')
-                        ->where('employeeNumber','=',(int)$data['EmployeeID'])
+                        ->where('employeeNumber','=',(int)$data['employeeNumber'])
                         ->get();
 
-            if (count($result) == 0) {
+            if (count($result) == 0) {//registration successful!
 
-                DB::table('employees_logindata')->insert([
-                    'employeeNumber' => $data['EmployeeID'],
+                return employees_logindata::create([
+                    'employeeNumber' => $data['employeeNumber'],
                     'password' => Hash::make($data['password']),
                 ]);
 
-                return back()->with('success', "registration successful!");
-            } else {
+            } else {//this employeesID is already registered
 
                 return back()->with('error', "this employeesID is already registered");
+
             }
         }
         

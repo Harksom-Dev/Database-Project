@@ -9,4 +9,21 @@ class employees_logindata extends Model
 {
     use HasFactory;
     protected $table = "employees_logindata";
+
+    protected $fillable = [
+        'id',
+        'employeeNumber',
+        'password',
+    ];
+
+    protected $remember_token = false;
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }
