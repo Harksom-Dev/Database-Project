@@ -142,6 +142,7 @@ class orderdetailController extends Controller
             ->where('codeID',$discoutcode)
             ->value('discount');
             //check discount in db
+            
             if($curdis == null){
                 return redirect()->back()->with('msg','This Code is unvalid');
             }
@@ -156,6 +157,19 @@ class orderdetailController extends Controller
             if(!$expd->isfuture()){
                 return redirect()->back()->with('msg','This Code is expired');
             }
+            //check used time
+            $usedtime = DB::table('promotioncode')
+            ->select('timeused')
+            ->where('codeID',$discoutcode)
+            ->value('timeused');
+            if($usedtime < 1){
+                return redirect()->back()->with('msg','This Code is out of used time');
+            }
+            //update new used time to discount code//promotioncode
+            $usedtime -= 1;
+            DB::table('promotioncode')
+            ->where('codeID',$discoutcode)
+            ->update(['timeused'=>$usedtime]);
         }else{
             $curdis = 0;
         }

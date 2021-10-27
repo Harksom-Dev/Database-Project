@@ -20,10 +20,12 @@ class promotioncodeController extends Controller
     }
 
     public function store(Request $request){
+        
         $request->validate([
             'codeID' => 'required|unique:promotioncode|max:11',
             'discount' => 'required',
             'expDate' => 'required',
+            'timeused' => 'required|numeric|gt:0',
             'description' => 'required'
         ]);
         $date = $request->expDate;
@@ -37,10 +39,11 @@ class promotioncodeController extends Controller
         $data["codeID"] = $request->codeID;
         $data["expDate"] = $request->expDate;
         $data["discount"] = $request->discount;
+        $data["timeused"] = $request->timeused;
         $data["description"] = $request->description;
         
         DB::table('promotioncode')->insert($data);
-        return redirect()->route('promotion.index')->with('success',"Insert product is successful!");
+        return redirect()->route('promotion.index')->with('success',"Insert promotioncode is successful!");
     }
     public function delete(Request $request){
         $id= $request->codeID;

@@ -22,6 +22,7 @@
                                 <th scope="col">Code ID</th> 
                                 <th scope="col">Discount</th>
                                 <th scope="col">Expire Date</th>
+                                <th scope="col">Timeused</th>
                                 <th scope="col">Description</th>
                                 <th scope="col"></th>
                             </tr>
@@ -33,6 +34,7 @@
                                 <th>{{$row->codeID}}</th>
                                 <td>{{$row->discount}}</td>
                                 <td>{{$row->expDate}}</td>
+                                <td>{{$row->timeused}}</td>
                                 <td>{{$row->description}}</td>
                                 <form action="{{url('/promotioncode/delete')}}">
                                 @csrf
@@ -59,16 +61,19 @@
                         <form action="{{route('promotion.store')}}" method="post">
                             @csrf
                             <div class="form">
-                                <label for="codeID" class="col-md-3">codeID</label> 
+                                <label for="codeID" class="col-md-2">codeID</label> 
                                 <label for="discount" class="col-md-3">discount</label>
-                                <label for="expDate" class="col-md-3">expDate</label> 
+                                <label for="expDate" class="col-md-2">expDate</label> 
+                                <label for="Timeused" class="col-md-2">Timeused</label> 
                                 <label for="description">description</label> <br>
-                                <input type="text" name="codeID" class="col-md-3">
+                                <input type="text" name="codeID" class="col-md-2">
                                 <input type="number" name="discount">
                                 <input type="date" name="expDate" class="col-md-3">
+                                <input type="number" name="timeused" class="col-md-2">
                                 <input type="text" name="description" class="col-md-3">
                                 @error('codeID') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('discount') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                @error('timeused') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('description') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @if(session()->has('msg'))
                                 <div class="alert alert-danger alert-block">
