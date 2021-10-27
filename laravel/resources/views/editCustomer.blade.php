@@ -75,15 +75,15 @@
                         <span class="input-group-text" id="inputGroup-sizing-sm">tel</span>
                         <input  name="telphone" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="telNo"  value="{{$customers[0]->phone}}"required >
                     </div>
-                    <div class="input-group input-group-sm mb-3">
+<!--                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">AddressLine1</span>
                         <input  name="AddressL1" ype="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="ad1"  value="{{$customers[0]->addressLine1}}"required>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">AddressLine2</span>
                         <input name="AddressL2" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="ad2"  value="{{$customers[0]->addressLine2}}" placeholder="Address Line 2">
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
+                    </div> -->
+                    <!--  <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Country</span>
                         <input name="country" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="country"  value="{{$customers[0]->country}}"required>
                     </div>
@@ -95,14 +95,14 @@
                         <input name="State" type="text" class="form-control" id="st"  value="{{$customers[0]->state}}"  placeholder="State">
                         <input name="inputZip" type="text" class="form-control" id="zc"  value="{{$customers[0]->postalCode}}"  placeholder="Postal Code"required >
                     </div>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group input-group-sm mb-3"> -->
                         <span class="input-group-text" id="inputGroup-sizing-sm">Total Point</span>
                         <input name="totalpts" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="TotalPoint"  value="{{$customers[0]->TotalPoint}}">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="history.back()">Close</button>
-                    <button type="SUBMIT" class="btn btn-primary" onclick="return confirm('Do you want to save changes?')" >Update</button>
+                    <button type="SUBMIT" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </form>

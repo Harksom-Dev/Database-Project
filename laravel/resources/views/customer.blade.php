@@ -5,7 +5,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
         <!-- script -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{url('customers')}}">home</a>
+                    <a class="nav-link active" href="{{url('welcome')}}">home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('customers')}}">CustomerManagement</a>
@@ -77,7 +77,7 @@
         <!-- CONTAINER  -->
         <div class="container mt-3 " align="center">
             <div align="left" style="padding-bottom: 1%;">  
-                <button type="button" class="btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addCustomer">New Customer <i class="glyphicon glyphicon-user"></i></button> 
+                <button type="button" class="btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addCustomer"><i class="bi bi-person-plus"></i>    New Customer <i class="glyphicon glyphicon-user"></i></button> 
             </div>
             <table class="table table-striped" style="width: 100%;">
                 <caption>List of users</caption>
@@ -99,7 +99,8 @@
                                 <td><span id="fname">{{$row -> contactFirstName}}</span>  <span id="lname">{{$row -> contactLastName}}</span> </td>
                                 <td> <span id="tel">{{$row -> phone}}</span></td>
                                 <td>
-                                    <a href="{{url('/customers/edit/'.$row->customerNumber)}}" class="btn btn-dark btn-sm edit_btnnaja" >More..</a>
+                                    <a href="{{url('/customers/edit/'.$row->customerNumber)}}" class="btn btn-dark btn-sm edit_btnnaja" > <i class="bi bi-pencil-square"></i>  More..</a>
+                                    <a href="{{url('/customers/address/edit/'. $row->customerNumber)}}" type="button" class="btn-sm btn-primary"><i class="bi bi-tools"></i> Address Mgmt.<i class="glyphicon glyphicon-user"></i></a>
                                     <a href="{{url('/customers/softdelete/'.$row->customerNumber)}}" class="btn btn-outline-danger btn-sm fa fa-trash"  onclick="return confirm('Are you certain that you want to delete this customer?') "></a>
                                 </td>  
                                 <!-- data-bs-toggle="modal" data-bs-target="#editCustomer" value="{{$row->customerNumber}} -->

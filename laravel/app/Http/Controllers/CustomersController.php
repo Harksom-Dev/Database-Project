@@ -79,6 +79,15 @@ class CustomersController extends Controller
         return view('editCustomer', compact('customers'));
     }   
 
+    public function addrEdit($id){
+        //dd($id->addressLine1);
+        $customers = DB::table('customeraddress')
+        ->where('customeraddress.customerNumber',$id)
+        ->get();
+        //dd($customers);
+        return view('editAddress', compact('customers'));
+    }   
+
 
 
     public function update(Request $request, $id){
@@ -102,6 +111,28 @@ class CustomersController extends Controller
         return redirect()->route('customer')->with('success', 'Customer Updated');
     }
 
+    
+    public function updateAddress(Request $request){
+        //dd($request);
+        DB::table('customeraddress')
+                    ->where('addressid',$request-> addressIDPhi)
+                    ->update([
+                        'customerNumber'=> $request->customerNumber,
+                        'addressLine1'=> $request->addressLine1,
+                        'addressLine2' => $request->addressLine2,
+                        'city'=> $request->city,
+                        'state' => $request ->state,
+                        'postalCode' => $request->postalCode,
+                        'country' => $request->country,
+                    ]);
+
+        return redirect()->back()->with('success', 'Customer Updated');
+    }
+
+
+
+
+
     public function softdelete($id){
         //dd($id);
         $delete = DB::table('customers')
@@ -110,4 +141,40 @@ class CustomersController extends Controller
 
         return redirect()->back()->with('deleted', 'Customer Deleted');
     }
+
+    public function addrSoftdelete($aid){
+        //dd($id);
+        $delete = DB::table('customeraddress')
+        ->where('customeraddress.addressid',$aid)
+        ->delete();
+
+        return redirect()->back()->with('deleted', 'Customer Deleted');
+    }
+
+    public function storeAddress(Request $request){ 
+        //dd($request->customerNumber);
+        //return redirect()-> back();
+        // to record
+        $orderNum = DB::table('customeraddress')
+        ->select('addressid')
+        ->latest('addressid')
+        ->value('addressid');
+
+        $data = array();
+        $data["addressid"] = $orderNum+1;
+        $data["customerNumber"] = $request->customerNumber;
+        $data["addressLine1"]= $request->addressLine1;
+        $data["addressLine2"]= $request->addressLine2;
+        $data["city"] = $request->city;
+        $data["state"]= $request->state;
+        $data["postalCode"]= $request->postalCode;
+        $data["country"] = $request->country;
+        $data["primaryaddress"] = 0;
+
+        DB::table('customeraddress')-> insert($data);
+        return redirect()->back()->with('success',"Address Added");
+    } 
+
+
+
 }
