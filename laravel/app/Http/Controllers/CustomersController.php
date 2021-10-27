@@ -113,7 +113,7 @@ class CustomersController extends Controller
 
     
     public function updateAddress(Request $request){
-        //dd($request);
+        //dd($request)
         DB::table('customeraddress')
                     ->where('addressid',$request-> addressIDPhi)
                     ->update([
@@ -124,6 +124,7 @@ class CustomersController extends Controller
                         'state' => $request ->state,
                         'postalCode' => $request->postalCode,
                         'country' => $request->country,
+                        'primaryaddress' => $request->primaryaddres,
                     ]);
 
         return redirect()->back()->with('success', 'Customer Updated');
@@ -169,7 +170,7 @@ class CustomersController extends Controller
         $data["state"]= $request->state;
         $data["postalCode"]= $request->postalCode;
         $data["country"] = $request->country;
-        $data["primaryaddress"] = 0;
+        $data["primaryaddress"] = $request->pA;
 
         DB::table('customeraddress')-> insert($data);
         return redirect()->back()->with('success',"Address Added");

@@ -281,6 +281,13 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
+                    <div class="col-md-6">
+                        <label for="pA" class="form-label">Set As Primary Address ? </label><span style="color: red !important; display: inline; float: none;">*</span> 
+                        <select id="pA" name="pA" class="form-control" required>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

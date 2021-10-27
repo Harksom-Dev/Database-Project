@@ -101,6 +101,7 @@
                                             data-bs-city="{{$row->city}}"
                                             data-bs-state="{{$row->state}}"
                                             data-bs-postalCode="{{$row->postalCode}}"
+                                            data-bs-pA = "{{$row ->primaryaddress}}"
                                             data-bs-country="{{$row->country}}"
                                             > 
                                             <i class="bi bi-pencil-square"></i>    Edit</a>
@@ -120,7 +121,6 @@
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary" href="{{url('/customers')}}">Close</a>
                     <a type="button" id="addAddress1" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAddress" data-bs-cusNo="{{$customers[0]->customerNumber}}"> <i class="bi bi-plus"></i> Add</a>
-                    <a type="button" class="btn btn-primary" href="{{url('/customers')}}">Update</a>
                 </div>
                 
             </form>
@@ -169,7 +169,7 @@
                 var state = bt.getAttribute('data-bs-state');
                 var postalCode = bt.getAttribute('data-bs-postalCode');
                 var country = bt.getAttribute('data-bs-country');
-                //var primaryaddress = bt.etAttribute('data-bs-primaryaddress');
+                var praddr = bt.getAttribute('data-bs-pA');
 
                 var addrIDInput = editAddressModal.querySelector('.hiddenid input');
                 var modalTitle = editAddressModal.querySelector('.modal-title');
@@ -180,7 +180,7 @@
                 var stateInput = editAddressModal.querySelector(' .state input');
                 var postalCodeInput = editAddressModal.querySelector('.postalCode input');
                 var countryInput = editAddressModal.querySelector('.country input');
-                //var primaryaddressInput = editAddressModal.querySelector('.selectbyph .defV option');
+                var paddrInput = editAddressModal.querySelector('.ph1');
                 
                 modalTitle.textContent = 'Edit address of ' + cusNo;
                 
@@ -192,7 +192,12 @@
                 postalCodeInput.value = postalCode;
                 countryInput.value = country;
                 addrIDInput.value = addrId;
-                //primaryaddressInput.value = primaryaddress;
+                var a ;
+                if(praddr == 1) a= 'Yes';
+                else a='No';
+                
+                paddrInput.textContent = a;
+                paddrInput.value = praddr;
             })
         </script>
 
