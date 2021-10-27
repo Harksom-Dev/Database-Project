@@ -24,7 +24,7 @@ class IsAdmin
                         ->select('jobTitle')
                         ->where('employeeNumber','=',decrypt($input['token'],"!@#$%^&*("))
                         ->get();
-            dd($role[0]);
+            // dd($role[0]);
             if(!empty($role[0])){
                 if ($role[0]->jobTitle == "President"){
                     return $next($request);
