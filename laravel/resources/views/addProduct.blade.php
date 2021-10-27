@@ -16,9 +16,46 @@
                     @if(session("success"))
                         <div class="alert alert-success">{{session('success')}}</div>
                     @endif
-                    @if(session("noproduct"))
-                        <div class="alert alert-danger">{{session('noproduct')}}</div>
-                    @endif
+                    @error('productCode')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('productName')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('productLine')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('productScale')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('productVendor')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('productDescription')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('buyPrice')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
+                    @error('MSRP')
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
                     <div class = "card-body">
                         <form action="{{route('product.store')}}" method="post">
                             @csrf

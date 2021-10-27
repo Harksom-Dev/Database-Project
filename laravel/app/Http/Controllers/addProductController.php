@@ -18,17 +18,18 @@ class addProductController extends Controller
     }
 
     public function store(Request $request){
+
         $request->validate([
-            'productCode' => 'required|unique:productCode|max:15',
-            'productName' => 'required|unique:productName|max:70',
+            'productCode' => 'required|unique:products|max:15',
+            'productName' => 'required|unique:products|max:70',
             'productLine' => 'required',
             'productScale' => 'required',
             'productVendor' => 'required',
             'productDescription' => 'required',
-            'quantityInStock' => 'required',
             'buyPrice' => 'required',
             'MSRP' => 'required'
         ]);
+
         $data = array();
         $data["productCode"] = $request->productCode;
         $data["productName"] = $request->productName;
