@@ -42,6 +42,9 @@
 
     <body>
         <h1 style="text-align: center; text-transform: uppercase; color: #581845;"> Address MAnagement</h1>
+        @if(session("msg"))
+            <div class="alert alert-danger">{{session('msg')}}</div>
+        @endif
         @if(session("success"))
             <div class="alert alert-success">{{session('success')}}</div>
         @endif
@@ -77,6 +80,7 @@
                                     <th scope="col">city</th>
                                     <th scope="col">state</th>
                                     <th scope="col">postalCode</th>
+                                    <th scope="col">Country </th>
                                     <th scope="col">   </th>
                                     <th scope="col">   </th>
                                     <th scope="col">defult</th>
@@ -104,11 +108,16 @@
                                             data-bs-pA = "{{$row ->primaryaddress}}"
                                             data-bs-country="{{$row->country}}"
                                             > 
-                                            <i class="bi bi-pencil-square"></i>    Edit</a>
+                                            <i class="bi bi-pencil-square"></i>    Edit</a></td>
+                                        <td>
                                         <a href="{{url('/customers/address/delete/'.$row->addressid)}}" class="btn btn-outline-danger btn-sm fa fa-trash"  onclick="return confirm('Are you certain that you want to delete this Address?') "></a></td>
-                                        <td><select name="priAddr" id="priAdddr">
+                                        <td><!-- <select name="priAddr" id="priAdddr">
                                                 <option value="{{$row->primaryaddress}}">{{$row->primaryaddress}}</option>
-                                        </select></td>
+                                        </select> -->
+                                        <?php if ($row->primaryaddress == '0') { ?>
+                                            <p class="h6"><sub>[edit to set default]</sub></p>
+                                        <?php }else{?> <p> <mark>[Primary]</mark> </p> <?php }?>
+                                    </td>
                                     </tr>
                                 @endforeach 
                             </tbody>
@@ -145,6 +154,24 @@
         <!-- end of modal --> 
 
         <script type="text/javascript">
+
+            $('.mk-def').click(function () {
+                var button = event.relatedTarget
+                var data = button.getAttribute('data-bs-mdk');
+                
+                
+            });
+
+
+
+
+
+
+
+
+
+
+
             var addAddressModal = document.getElementById('addAddress')
             addAddressModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget

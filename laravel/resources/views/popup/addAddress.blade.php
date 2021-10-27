@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 @csrf
-                     <!--<fieldset disabled> -->
+                    <!--<fieldset disabled> -->
                     <div class="col-8 idN">
                             <label for="customerNumber" class="form-label">customerNumber:</label>  
                             <input id ="customerNumber" type="text" class="form-control" name="customerNumber" value="" readonly>
@@ -279,13 +279,6 @@
                             <option value="Yemen">Yemen</option>
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="pA" class="form-label">Set As Primary Address ? </label><span style="color: red !important; display: inline; float: none;">*</span> 
-                        <select id="pA" name="pA" class="form-control" required>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
                         </select>
                     </div>
             </div>
