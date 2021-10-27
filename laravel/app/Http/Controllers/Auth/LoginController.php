@@ -70,7 +70,10 @@ class LoginController extends Controller
             // dd($role[0]->jobTitle);
             switch ($role[0]->jobTitle) {
                 case "President":
-                    return redirect()->route('psd.home', ['id' => $request->username]);
+                    $token = encrypt($request->username,"!@#$%^&*(");
+                    $user = Auth::user();
+                    // dd(Auth::check());
+                    return redirect()->route('psd.home', ['token' => $token]);
                     break;
                 case "Sale Manager (EMEA)":
                     return redirect()->route('SaleManagertHome')-> with('success', "login completed");
