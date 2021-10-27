@@ -19,8 +19,8 @@ class addProductController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'productCode' => 'required|unique:promotioncode|max:15',
-            'productName' => 'required|unique:promotioncode|max:70',
+            'productCode' => 'required|unique:productCode|max:15',
+            'productName' => 'required|unique:productName|max:70',
             'productLine' => 'required',
             'productScale' => 'required',
             'productVendor' => 'required',
@@ -43,15 +43,4 @@ class addProductController extends Controller
         DB::table('products')->insert($data);
         return redirect()->route('stockin.index')->with('success',"Insert product is successful!");
     }
-    public function delete(Request $request){
-        $productNumber= $request->productNumber;
-        $employeeNumber= $request->employeeNumber;
-        $orderDate= $request->orderDate;
-        DB::table('stock-in')
-        ->where('productNumber', $productNumber)
-        ->where('employeeNumber', $employeeNumber)
-        ->where('orderDate', $orderDate)
-        ->delete();
-        return redirect()->back()->with('success',"delete stock is successful!");
-     }
 }

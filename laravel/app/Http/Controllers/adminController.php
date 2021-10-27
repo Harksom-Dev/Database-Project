@@ -9,11 +9,11 @@ class adminController extends Controller
 {
     function index(){
         $var = 1002;
-        $employee=DB::table('employees')
+        $employees=DB::table('employees')
         ->select('employees.*')
-        ->where('employeess.employeeNumber', $var);
-        // dd($employee);
-        return view('employees');
+        ->where('employeeNumber',$var)
+        ->get();
+        return view('admin',compact('employees'));
     }
 
 }

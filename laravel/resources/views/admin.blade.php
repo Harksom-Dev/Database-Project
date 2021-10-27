@@ -29,8 +29,9 @@
         <div class="row">
             <div class="col-sm-auto bg-light sticky-top">
                 <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                    @foreach($employees as $row)
                     <a href="/" class="d-block p-1 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
-                        <h2>Hello, Name</h2>
+                        <h2>Hello, {{$row->firstName}} {{$row->lastName}}</h2>
                     </a>
                     <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 px-3 align-items-center">
                     <div>
@@ -38,7 +39,6 @@
                             <i class="bi-person-circle h2"></i>
                         </a>
                     </div>
-                    @foreach($employee as $row)
                     <form action="" mothod="">
                         @csrf
                         <div class="form">
@@ -63,7 +63,7 @@
                     <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('employees')}}">Employee detail</a>
                     <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('catalog')}}">Catalog</a>
                     <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('stock-in')}}">Stock in</a>
-                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('customer')}}">Customer detail</a>
+                    <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('customers')}}">Customer detail</a>
                     <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('order')}}">Order detail</a>
                     <a class="btn btn-primary btn-lg btn-block p-2 my-2" href="{{url('promotioncode')}}">Discount code</a>
                 </div>

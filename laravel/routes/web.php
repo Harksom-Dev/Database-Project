@@ -49,10 +49,12 @@ Route::any('/search',[App\Http\Controllers\SearchCustomerController::class, 'ind
 
 
 Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
-Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
-Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
 Route::post('/stock-in/add/new',[App\Http\Controllers\stock_inController::class,'store'])->name('stockin.store');
 Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'delete']);
+
+Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
+Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
+
 
 use App\Http\Controllers\promotioncodeController;
 Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
@@ -97,11 +99,8 @@ Route::post('/order',[orderdetailController::class,'order'])->name('order.add');
 Route::get('/test',[orderdetailController::class,'test'])->name('test');
 Route::get('/test2',[orderdetailController::class,'test2'])->name('test2');
 
-<<<<<<< HEAD
-=======
 // use App\Http\Controllers\promotioncodeController;
 // Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
->>>>>>> 2da4f290104a27c62530d5e9d649f38f1e31ec5d
 
 use App\Http\Controllers\paymentController;
 Route::get('/payment/{id}',[paymentController::class,'index'])->name('payment');
