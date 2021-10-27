@@ -48,53 +48,59 @@ class LoginController extends Controller
         $input = $request->all();
 
         // dd($input);
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
+        $credentials = $request->only('employeeNumber', 'password');
 
-        $password =   DB::table('employees_logindata')
-                        ->select('password')
-                        ->where('employeeNumber','=',$request->username)
-                        ->get();
-
-        // $test = array($request->password, $password[0]->password);
-        // dd($test);
-
-        if (password_verify($request->password, $password[0]->password)) {
-
-            $role = DB::table('employees')
-                    ->select('jobTitle')
-                    ->where('employeeNumber','=',$request->username)
-                    ->get();
-            // dd($role[0]->jobTitle);
-            switch ($role[0]->jobTitle) {
-                case "President":
-                    $token = encrypt($request->username,"!@#$%^&*(");
-                    $user = Auth::user();
-                    // dd(Auth::check());
-                    return redirect()->route('psd.home', ['token' => $token]);
-                    break;
-                case "Sale Manager (EMEA)":
-                    return redirect()->route('SaleManagertHome')-> with('success', "login completed");
-                    break;
-                case "Sales Manager (APAC)":
-                    return redirect()->route('SaleManagertHome')-> with('success', "login completed");
-                    break;
-                case "Sales Manager (NA)":
-                    return redirect()->route('SaleManagertHome')-> with('success', "login completed");
-                    break;
-                case "VP Marketing":
-                    return redirect()->route('VPMarketingHome')-> with('success', "login completed");
-                    break;
-                case "VP Sales":
-                    return redirect()->route('VPSalesHome')-> with('success', "login completed");
-                    break;
-                case "Sales Rep":
-                    return redirect()->route('SalesRepHome')-> with('success', "login completed");
-                    break;
-            };
+        if (Auth::attempt($credentials,$remember = false)) {
+            // Authentication passed...
+            $user = Auth::user();
+            // dd($user);
+            return redirect()->route('psd.home');
+        } else {
+            return back()->with('error', "userID and password are wrong.");
         }
-        return back()->with('error', "userID and password are wrong.");
+
+        // $password =   DB::table('employees_logindata')
+        //                 ->select('password')
+        //                 ->where('employeeNumber','=',$request->username)
+        //                 ->get();
+
+        // // $test = array($request->password, $password[0]->password);
+        // // dd($test);
+
+        // if (password_verify($request->password, $password[0]->password)) {
+
+        //     $role = DB::table('employees')
+        //             ->select('jobTitle')
+        //             ->where('employeeNumber','=',$request->username)
+        //             ->get();
+        //     // dd($role[0]->jobTitle);
+        //     switch ($role[0]->jobTitle) {
+        //         case "President":
+        //             $token = encrypt($request->username,"!@#$%^&*(");
+        //             $user = Auth::user();
+        //             // dd(Auth::check());
+        //             return redirect()->route('psd.home', ['token' => $token]);
+        //             break;
+        //         case "Sale Manager (EMEA)":
+        //             return redirect()->route('SaleManagertHome')-> with('success', "login completed");
+        //             break;
+        //         case "Sales Manager (APAC)":
+        //             return redirect()->route('SaleManagertHome')-> with('success', "login completed");
+        //             break;
+        //         case "Sales Manager (NA)":
+        //             return redirect()->route('SaleManagertHome')-> with('success', "login completed");
+        //             break;
+        //         case "VP Marketing":
+        //             return redirect()->route('VPMarketingHome')-> with('success', "login completed");
+        //             break;
+        //         case "VP Sales":
+        //             return redirect()->route('VPSalesHome')-> with('success', "login completed");
+        //             break;
+        //         case "Sales Rep":
+        //             return redirect()->route('SalesRepHome')-> with('success', "login completed");
+        //             break;
+        //     };
+        // }
+        // return back()->with('error', "userID and password are wrong.");
     }
 }

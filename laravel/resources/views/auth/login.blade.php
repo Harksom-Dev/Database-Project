@@ -15,7 +15,7 @@
                             <label for="userID" class="col-md-4 col-form-label text-md-right">{{ __('userID') }}</label>
 
                             <div class="col-md-6">
-                            <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required  autofocus>
+                            <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="employeeNumber" value="{{ old('username') }}" required  autofocus>
                             </div>
                         </div>
 

@@ -31,8 +31,6 @@ use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\Auth\RegisterController;
 
-use App\Http\Controllers\testController;
-Route::get('/get-user/{id}',[testController::class,'test'])->name('test');
 
 
 

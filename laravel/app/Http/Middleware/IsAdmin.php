@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 
 class IsAdmin
 {
@@ -18,24 +20,24 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $input = $request->all();
-        if(!empty($input)){
+        if(auth::user()) {
+            $employeeNumber = auth::user()->employeeNumber;
             $role = DB::table('employees')
-                        ->select('jobTitle')
-                        ->where('employeeNumber','=',decrypt($input['token'],"!@#$%^&*("))
-                        ->get();
-            // dd($role[0]);
-            if(!empty($role[0])){
-                if ($role[0]->jobTitle == "President"){
-                    return $next($request);
+            ->select('jobTitle')
+            ->where('employeeNumber','=', $employeeNumber)
+            ->get();
+                if(true){
+                    if ($role[0]->jobTitle == "President"){
+                        return $next($request);
+                    }
+                } else {
+                    return redirect() -> route('login') -> with('error',"You dont have permission to access this page");
                 }
-            } else {
-                return redirect() -> route('login') -> with('error',"You dont have permission to access this page");
-            }
         } else {
             return redirect() -> route('home');
         }
-        
-        
     }
+        
+        
 }
+
