@@ -8,15 +8,7 @@
 
         </head>
         <body>
-            <!-- <div class="links">
-            <a href="{{ config('app.url')}}">Home</a>
-            </div>
-            <div class="links">
-            <a href="{{ route('test')}}">cart</a>
-            </div>
-            <div class="links">
-            <a href="{{ route('test2')}}">resetCart</a>
-            </div> -->
+            
             <!--  Navigation Bar  --> 
             <nav class="navbar navbar-expand-sm bg-light navbar-light">
                 <div class="container-fluid">

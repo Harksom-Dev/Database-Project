@@ -54,8 +54,9 @@
                     @endforeach
                 </div>
                 @if(session()->has('msg'))
-                        <div class="alert alert-danger alert-block">
+                        <div class="alert alert-danger alert-block my-2">
                             <strong>{{ session()->get('msg') }}</strong>
+                            
                         </div>
                     @endif
             </div>
