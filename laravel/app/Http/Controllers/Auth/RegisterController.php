@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => [ 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'unique:users','exists:employees'],
+            'email' => ['required', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             
         ]);
@@ -65,11 +66,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
+        $result =   DB::table('employees')
+                        ->select('employeeNumber')
+                        ->where('employeeNumber','=',(int)$data['email'])
+                        ->get();
+
+        if (count($result) == 0) {//dont have any match in employees database
+
+
+        } else {
+
+            $result =   DB::table('employees_logindata')
+                        ->select('employeeNumber')
+                        ->where('employeeNumber','=',(int)$data['email'])
+                        ->get();
+
+            if (count($result) == 0) {//registration successful!
+
+                return User::create([
+                    'name' => null,
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                ]);
+
+            } else {//this employeesID is already registered
+
+
+            }
+        }
         
-        return User::create([
-            'name' => null,
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
     }
 }
