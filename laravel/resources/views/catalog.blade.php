@@ -39,7 +39,7 @@
                         </div>
                     @enderror
                     @if(session()->has('msg'))
-                        <div class="alert alert-danger alert-block">
+                        <div class="alert alert-success alert-block">
                             <strong>{{ session()->get('msg') }}</strong>
                         </div>
                     @endif
