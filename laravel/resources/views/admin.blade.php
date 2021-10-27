@@ -39,7 +39,7 @@
                             <i class="bi-person-circle h2"></i>
                         </a>
                     </div>
-                    <form action="" mothod="">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
                         <div class="form">
                             <label for="Name">{{$row->firstName	}} {{$row->lastName}}</label> <br>
@@ -53,6 +53,11 @@
                     </form>
                     @endforeach
                 </div>
+                @if(session()->has('msg'))
+                        <div class="alert alert-danger alert-block">
+                            <strong>{{ session()->get('msg') }}</strong>
+                        </div>
+                    @endif
             </div>
             <div class="col-sm p-3 min-vh-100">
                 <!-- content -->
