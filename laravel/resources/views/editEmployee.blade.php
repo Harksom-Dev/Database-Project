@@ -72,7 +72,6 @@
                         <span class="input-group-text" id="inputGroup-sizing-sm">Extension</span>
                         <input  name="extension" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="extension" value="{{$employees[0]->extension}}" required>
                     </div>
-
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Email: </span>
                         <input  name="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="email"  value="{{$employees[0]->email}}" required>

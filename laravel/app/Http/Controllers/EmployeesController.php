@@ -90,4 +90,14 @@ class EmployeesController extends Controller
                     return redirect()->route('employee')->with('success', 'Employee Updated');
     }
 
+
+    public function softdelete($id){
+        
+        $delete = DB::table('employees')
+        ->where('employees.employeeNumber',$id)
+        ->delete();
+
+        return redirect()->route('employee')->with('deleted', 'Employee Deleted');
+    }
+
 }

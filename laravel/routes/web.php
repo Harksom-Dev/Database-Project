@@ -27,6 +27,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// create Route
+Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit'])->name('editpage')->middleware('is_admin');;
+Route::get('/customers/address/edit/{id}', [App\Http\Controllers\CustomersController:: class,'addrEdit']);
+
+Route::post('/customers/address/add/', [App\Http\Controllers\CustomersController:: class,'storeAddress'])->name('addAddress');
+Route::get('/customers/address/delete/{id}', [App\Http\Controllers\CustomersController:: class,'addrSoftdelete']);
+Route::post('/customers/address/update',[App\Http\Controllers\CustomersController:: class,'updateAddress'])->name('updateAddress');
+
+
+
+
 Auth::routes();
 
 // create Route
@@ -38,14 +50,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'admin'])->name
 Route::get('/employees', [App\Http\Controllers\EmployeesController:: class, 'index'])->name('employee')->middleware('is_admin', 'isSale');
 Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit'])->middleware('is_admin');
 Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete'])->middleware('is_admin');
-Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:: class,'update']->middleware('is_admin'));
+Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:: class,'update'])->middleware('is_admin'));
 Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])-> name('addEmployee');
 
 
 
 Route::get('/customers', [App\Http\Controllers\CustomersController:: class, 'index'])->name('customer')->middleware('is_admin');
 Route::get('/get-cus/{id}', [App\Http\Controllers\CustomersController:: class, 'getSelaeRepByEmployee'])->middleware('is_admin');
-Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit'])->middleware('is_admin');
 Route::post('/customers/add',[App\Http\Controllers\CustomersController:: class,'store'])-> name('addCustomer')->middleware('is_admin');
 Route::patch('/customers/update/{id}',[App\Http\Controllers\CustomersController:: class,'update'])->middleware('is_admin');
 Route::get('/customers/softdelete/{id}', [App\Http\Controllers\CustomersController:: class,'softdelete'])->middleware('is_admin');
