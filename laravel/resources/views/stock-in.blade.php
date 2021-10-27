@@ -8,6 +8,18 @@
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{url('admin')}}">Home</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
     <div class="py12">
         <div class="container">
             <div class="row">
