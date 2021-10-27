@@ -1,14 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\Support\Facades\DB;
-
-
 use app\Http\Controllers\orderController;
-
-
-
+use Illuminate\http\Request;
 
 
 /*
@@ -79,21 +74,14 @@ use App\Http\Controllers\customerController;
 //route to check if customer have member or not
 Route::get('/customercheck',[customerController::class,'memberCheck'])->name('memcheck');
 Route::post('/checking',[customerController::class,'check'])->name('check');
+use App\Http\Controllers\customHomeController;
+Route::get('president/home/', [customHomeController::class, 'presidentHome'])->name('psd.home')->middleware('is_admin');
+
+use App\Http\Controllers\Auth\LoginController;
 
 
-use App\Http\Controllers\catalogController;
-//main catalog route
-Route::get('/catalog',[catalogController::class,'index'])->name('catalog');
-Route::post('/catalog',[catalogController::class,'index'])->name('catalog');
-// Route::post('/group',[catalogController::class,'group'])->name('group');
-Route::post('/catalog/or',[catalogController::class,'addorder'])->name('order');
+use App\Http\Controllers\Auth\RegisterController;
 
-use App\Http\Controllers\orderdetailController;
-//orderdetail route
-Route::get('/cart',[orderdetailController::class,'index'])->name('cart.index');
-Route::post('/cart',[orderdetailController::class,'store'])->name('cart.store');
-
-Route::delete('/cartremove',[orderdetailController::class,'remove'])->name('cart.remove');
 
 Route::post('/order',[orderdetailController::class,'order'])->name('order.add');
 
