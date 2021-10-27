@@ -41,6 +41,7 @@ Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:
 Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])-> name('addEmployee');
 
 Auth::routes();
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::any('/search',[App\Http\Controllers\SearchCustomerController::class, 'index'] );
