@@ -38,19 +38,20 @@
                             <i class="bi-person-circle h2"></i>
                         </a>
                     </div>
+                    @foreach($employee as $row)
                     <form action="" mothod="">
-                            @csrf
-                            <div class="form">
-                                <label for="Name">Kuay raiYo</label> <br>
-                                <label for="Email">asdgsfghsfgh@cmu.ac.th</label> <br>
-                                <label for="Role">Manager</label>
-                                <br>
-                                <td>
-                                    <button type="submit" class="btn btn-danger">Log out</button>
-                                </td>
-                            </div>
-                        </form>
-
+                        @csrf
+                        <div class="form">
+                            <label for="Name">{{$row->firstName	}} {{$row->lastName}}</label> <br>
+                            <label for="Email">{{$row->email}}</label> <br>
+                            <label for="Job-title">{{$row->jobTitle}}</label>
+                            <br>
+                            <td>
+                                <button type="submit" class="btn btn-danger">Log out</button>
+                            </td>
+                        </div>
+                    </form>
+                    @endforeach
                 </div>
             </div>
             <div class="col-sm p-3 min-vh-100">
