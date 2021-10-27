@@ -10,10 +10,10 @@ use Carbon\Carbon;
 class addProductController extends Controller
 {
     function index(){
+
         $products=DB::table('products')
-        ->select('products.*')
-        ->orderby('products.productCode')
-        ->paginate(10);
+        ->groupBy('productLine')
+        ->get('productLine');
         return view('addProduct',compact('products'));
     }
 
