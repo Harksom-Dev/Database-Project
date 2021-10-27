@@ -48,6 +48,6 @@ class promotioncodeController extends Controller
         ->where('codeID', $id)
         ->delete();
         return redirect()->back()->with('success',"delete stock is successful!");
-     }
+    }
 
 }

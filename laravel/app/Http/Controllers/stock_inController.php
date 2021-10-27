@@ -14,7 +14,7 @@ class stock_inController extends Controller
       ->join('products','stock-in.productNumber','products.productCode')
       ->select('stock-in.*','products.productName')
       ->orderby('stock-in.orderDate')
-      ->paginate(5);
+      ->paginate(10);
       return view('stock-in',compact('stock_in'));
    }
 

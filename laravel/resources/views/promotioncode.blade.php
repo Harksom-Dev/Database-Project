@@ -11,7 +11,7 @@
     <div class="py12">
         <div class="container">
             <div class="row">
-                <div class="col-md-10">
+                <div>
                     <div>
                         <div align="center">
                             <h1>Promotion code</h1>
@@ -49,7 +49,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div>
                     <h2>Create new promotion code</h2>
                     @if(session("success"))
                         <div class="alert alert-success">{{session('success')}}</div>
@@ -59,14 +59,14 @@
                         <form action="{{route('promotion.store')}}" method="post">
                             @csrf
                             <div class="form">
-                                <label for="codeID">codeID</label> <br>
-                                <input type="text" name="codeID"><br>
-                                <label for="discount">discount</label><br>
-                                <input type="number" name="discount"><br>
-                                <label for="expDate">expDate</label><br>
-                                <input type="date" name="expDate"><br>
-                                <label for="description">description</label><br>
-                                <input type="text" name="description"><br>
+                                <label for="codeID" class="col-md-3">codeID</label> 
+                                <label for="discount" class="col-md-3">discount</label>
+                                <label for="expDate" class="col-md-3">expDate</label> 
+                                <label for="description">description</label> <br>
+                                <input type="text" name="codeID" class="col-md-3">
+                                <input type="number" name="discount">
+                                <input type="date" name="expDate" class="col-md-3">
+                                <input type="text" name="description" class="col-md-3">
                                 @error('codeID') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('discount') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('description') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
@@ -76,7 +76,7 @@
                                 </div>
                                 @endif
                                 <br>
-                                <input type="submit" class="btn btn-primary">
+                                <input type="submit" class="btn btn-primary  my-2">
                             </div>
                         </form>
                     </div>

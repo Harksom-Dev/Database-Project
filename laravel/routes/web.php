@@ -50,15 +50,23 @@ Route::any('/search',[App\Http\Controllers\SearchCustomerController::class, 'ind
 
 
 Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
-Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
-Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
 Route::post('/stock-in/add/new',[App\Http\Controllers\stock_inController::class,'store'])->name('stockin.store');
 Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'delete']);
+
+Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
+Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
+
 
 use App\Http\Controllers\promotioncodeController;
 Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
 Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
+Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
+
 Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
+
+
+use App\Http\Controllers\adminController;
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin');
 
 
 Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
@@ -68,7 +76,6 @@ Route::post('/addedit',[App\Http\Controllers\orderController::class, 'addedit'])
 
 
 use App\Http\Controllers\customerController;
-
 //route to check if customer have member or not
 Route::get('/customercheck',[customerController::class,'memberCheck'])->name('memcheck');
 Route::post('/checking',[customerController::class,'check'])->name('check');
