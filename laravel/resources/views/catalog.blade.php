@@ -8,7 +8,7 @@
 
         </head>
         <body>
-            <div class="links">
+            <!-- <div class="links">
             <a href="{{ config('app.url')}}">Home</a>
             </div>
             <div class="links">
@@ -16,7 +16,19 @@
             </div>
             <div class="links">
             <a href="{{ route('test2')}}">resetCart</a>
-            </div>
+            </div> -->
+            <!--  Navigation Bar  --> 
+            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{url('admin')}}">Home</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of  Navigation Bar  --> 
             
             <div class="container">
                 <div class ="col-md-8">

@@ -32,13 +32,20 @@ Route::get('/customers', [App\Http\Controllers\CustomersController:: class, 'ind
 Route::get('/get-cus/{id}', [App\Http\Controllers\CustomersController:: class, 'getSelaeRepByEmployee']);
 
 
-Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit']);
+Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit'])-> name('editpage');
+Route::get('/customers/address/edit/{id}', [App\Http\Controllers\CustomersController:: class,'addrEdit']);
+
+Route::post('/customers/address/add/', [App\Http\Controllers\CustomersController:: class,'storeAddress'])-> name('addAddress');
+Route::get('/customers/address/delete/{id}', [App\Http\Controllers\CustomersController:: class,'addrSoftdelete']);
+Route::post('/customers/address/update',[App\Http\Controllers\CustomersController:: class,'updateAddress'])->name('updateAddress');
+
 Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit']);
 Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete']);
 
 Route::post('/customers/add',[App\Http\Controllers\CustomersController:: class,'store'])-> name('addCustomer');
 Route::patch('/customers/update/{id}',[App\Http\Controllers\CustomersController:: class,'update']);
 Route::get('/customers/softdelete/{id}', [App\Http\Controllers\CustomersController:: class,'softdelete']);
+Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete']);
 
 Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:: class,'update']);
 Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])-> name('addEmployee');
@@ -50,15 +57,23 @@ Route::any('/search',[App\Http\Controllers\SearchCustomerController::class, 'ind
 
 
 Route::get('/stock-in',[App\Http\Controllers\stock_inController::class,'index'])->name('stockin.index');
-Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
-Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
 Route::post('/stock-in/add/new',[App\Http\Controllers\stock_inController::class,'store'])->name('stockin.store');
 Route::get('/stock-in/delete/',[App\Http\Controllers\stock_inController::class,'delete']);
+
+Route::get('/product/add',[App\Http\Controllers\addProductController::class,'index'])->name('addproduct');
+Route::post('/product/add',[App\Http\Controllers\addProductController::class,'store'])->name('product.store');
+
 
 use App\Http\Controllers\promotioncodeController;
 Route::get('/promotioncode',[promotioncodeController::class,'index'])->name('promotion.index');
 Route::post('/promotioncode/add',[promotioncodeController::class,'store'])->name('promotion.store');
+Route::post('/codechecking',[promotioncodeController::class,'check'])->name('codecheck');
+
 Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController::class,'delete']);
+
+
+use App\Http\Controllers\adminController;
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin');
 
 
 Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
@@ -68,7 +83,6 @@ Route::post('/addedit',[App\Http\Controllers\orderController::class, 'addedit'])
 
 
 use App\Http\Controllers\customerController;
-
 //route to check if customer have member or not
 Route::get('/customercheck',[customerController::class,'memberCheck'])->name('memcheck');
 Route::post('/checking',[customerController::class,'check'])->name('check');

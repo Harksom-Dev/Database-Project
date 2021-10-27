@@ -15,9 +15,7 @@ class orderdetailController extends Controller
      */
     public function index()
     {
-        if(!session::has('cart')){
-            return view('test');
-        }
+        
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
 
@@ -144,6 +142,7 @@ class orderdetailController extends Controller
             ->where('codeID',$discoutcode)
             ->value('discount');
             //check discount in db
+            
             if($curdis == null){
                 return redirect()->back()->with('msg','This Code is unvalid');
             }
@@ -158,6 +157,19 @@ class orderdetailController extends Controller
             if(!$expd->isfuture()){
                 return redirect()->back()->with('msg','This Code is expired');
             }
+            //check used time
+            $usedtime = DB::table('promotioncode')
+            ->select('timeused')
+            ->where('codeID',$discoutcode)
+            ->value('timeused');
+            if($usedtime < 1){
+                return redirect()->back()->with('msg','This Code is out of used time');
+            }
+            //update new used time to discount code//promotioncode
+            $usedtime -= 1;
+            DB::table('promotioncode')
+            ->where('codeID',$discoutcode)
+            ->update(['timeused'=>$usedtime]);
         }else{
             $curdis = 0;
         }
@@ -166,6 +178,9 @@ class orderdetailController extends Controller
         //get cart from session
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
+        if($cart->items == null){
+            return redirect()->back()->with('msg','cart is empty');
+        }
         foreach($cart->items as $data){
             $qty =  DB::table('products')
             ->select('quantityInstock')

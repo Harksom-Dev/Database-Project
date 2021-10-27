@@ -100,4 +100,5 @@ class EmployeesController extends Controller
 
         return redirect()->route('employee')->with('deleted', 'Employee Deleted');
     }
+
 }
