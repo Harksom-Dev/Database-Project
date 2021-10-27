@@ -8,10 +8,21 @@
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{url('admin')}}">Home</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
     <div class="py12">
         <div class="container">
             <div class="row">
-                <div class="col-md-10">
+                <div>
                     <div>
                         <div align="center">
                             <h1>Promotion code</h1>
@@ -22,6 +33,7 @@
                                 <th scope="col">Code ID</th> 
                                 <th scope="col">Discount</th>
                                 <th scope="col">Expire Date</th>
+                                <th scope="col">Timeused</th>
                                 <th scope="col">Description</th>
                                 <th scope="col"></th>
                             </tr>
@@ -33,6 +45,7 @@
                                 <th>{{$row->codeID}}</th>
                                 <td>{{$row->discount}}</td>
                                 <td>{{$row->expDate}}</td>
+                                <td>{{$row->timeused}}</td>
                                 <td>{{$row->description}}</td>
                                 <form action="{{url('/promotioncode/delete')}}">
                                 @csrf
@@ -49,7 +62,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div>
                     <h2>Create new promotion code</h2>
                     @if(session("success"))
                         <div class="alert alert-success">{{session('success')}}</div>
@@ -59,16 +72,19 @@
                         <form action="{{route('promotion.store')}}" method="post">
                             @csrf
                             <div class="form">
-                                <label for="codeID">codeID</label> <br>
-                                <input type="text" name="codeID"><br>
-                                <label for="discount">discount</label><br>
-                                <input type="number" name="discount"><br>
-                                <label for="expDate">expDate</label><br>
-                                <input type="date" name="expDate"><br>
-                                <label for="description">description</label><br>
-                                <input type="text" name="description"><br>
+                                <label for="codeID" class="col-md-2">codeID</label> 
+                                <label for="discount" class="col-md-3">discount</label>
+                                <label for="expDate" class="col-md-2">expDate</label> 
+                                <label for="Timeused" class="col-md-2">Timeused</label> 
+                                <label for="description">description</label> <br>
+                                <input type="text" name="codeID" class="col-md-2">
+                                <input type="number" name="discount">
+                                <input type="date" name="expDate" class="col-md-3">
+                                <input type="number" name="timeused" class="col-md-2">
+                                <input type="text" name="description" class="col-md-3">
                                 @error('codeID') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('discount') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
+                                @error('timeused') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @error('description') <div class="my-1"><span class="text-danger">{{$message}}</span></div> @enderror
                                 @if(session()->has('msg'))
                                 <div class="alert alert-danger alert-block">
@@ -76,7 +92,7 @@
                                 </div>
                                 @endif
                                 <br>
-                                <input type="submit" class="btn btn-primary">
+                                <input type="submit" class="btn btn-primary  my-2">
                             </div>
                         </form>
                     </div>
