@@ -99,12 +99,6 @@ class CustomersController extends Controller
                         'contactFirstName' => $request->firstName,
                         'contactLastName'=> $request->lastName,
                         'phone' => $request ->telphone,
-                        'addressLine1' => $request->AddressL1,
-                        'addressLine2' => $request->AddressL2,
-                        'country' => $request->country,
-                        'city' => $request->City,
-                        'state'=> $request ->State,
-                        'postalCode' => $request->inputZip,
                         'TotalPoint' => $request->totalpts
                     ]);
 

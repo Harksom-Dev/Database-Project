@@ -49,7 +49,8 @@ Route::get('/employees', [App\Http\Controllers\EmployeesController:: class, 'ind
 Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit'])->middleware('is_admin', 'isSale');
 Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete'])->middleware('is_admin', 'isSale');
 Route::patch('/employees/update/{id}',[App\Http\Controllers\EmployeesController:: class,'update'])->middleware('is_admin', 'isSale');
-Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])->middleware('is_admin', 'isSale');
+Route::post('/employees/add',[App\Http\Controllers\EmployeesController:: class,'store'])-> name('addEmployee')->middleware('is_admin', 'isSale');
+
 
 
 
