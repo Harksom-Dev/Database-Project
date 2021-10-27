@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use app\Http\Controllers\orderController;
 use Illuminate\http\Request;
-
+use app\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 // create Route
 Route::get('/employees', [App\Http\Controllers\EmployeesController:: class, 'index'])->name('employee');
 Route::get('/customers', [App\Http\Controllers\CustomersController:: class, 'index'])->name('customer');
@@ -29,6 +31,7 @@ Route::get('/get-cus/{id}', [App\Http\Controllers\CustomersController:: class, '
 
 Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController:: class,'edit']);
 Route::get('/employees/edit/{id}', [App\Http\Controllers\EmployeesController:: class,'edit']);
+Route::get('/employees/softdelete/{id}', [App\Http\Controllers\EmployeesController:: class,'softdelete']);
 
 Route::post('/customers/add',[App\Http\Controllers\CustomersController:: class,'store'])-> name('addCustomer');
 Route::patch('/customers/update/{id}',[App\Http\Controllers\CustomersController:: class,'update']);
@@ -60,7 +63,7 @@ Route::get('/promotioncode/delete',[App\Http\Controllers\promotioncodeController
 
 
 use App\Http\Controllers\adminController;
-Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin');
+Route::get('/admin', [App\Http\Controllers\adminController::class, 'index'])->name('admin')->middleware('is_admin');
 
 
 Route::get('/order',[App\Http\Controllers\orderController::class, 'index'])->name('order.index');
@@ -76,7 +79,6 @@ Route::post('/checking',[customerController::class,'check'])->name('check');
 use App\Http\Controllers\customHomeController;
 Route::get('president/home/', [customHomeController::class, 'presidentHome'])->name('psd.home')->middleware('is_admin');
 
-use App\Http\Controllers\Auth\LoginController;
 
 
 use App\Http\Controllers\Auth\RegisterController;
